@@ -199,8 +199,8 @@
 				<tbody>
 					<tr align="center" height="33" ng-repeat="a in processoA" style="font-size: 10px">
 						<td  style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{a.cor}}; color: #FFFFFF; font-size: 12px" >{{a.pagina}}</td>
-						<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{a.cort}}; color: #FFFFFF; font-size: 12px">{{a.endMF}}</td>
-						<td  style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{a.cort}}; color: {{a.bitcor}}; font-size: 12px" >{{a.bit}}</td>
+						<td style="-webkit-transition-delay:{{1 * 1000}}ms; background-color: {{a.cort}}; color: #FFFFFF; font-size: 12px">{{a.endMF}}</td>
+						<td  style="-webkit-transition-delay:{{1 * 1000}}ms; background-color: {{a.cort}}; color: {{a.bitcor}}; font-size: 12px" >{{a.bit}}</td>
 					</tr>
 				</tbody>
 				
@@ -266,8 +266,8 @@
 				</thead>
 				<tr align="center" height="33" ng-repeat="c in processoC" style="font-size: 10px">
 					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{c.cor}}; color: #FFFFFF; font-size: 12px" >{{c.pagina}}</td>
-					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{c.cort}}; color: #FFFFFF; font-size: 12px">{{c.endMF}}</td>
-					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{c.cort}}; color: {{c.bitcor}}; font-size: 12px">{{c.bit}}</td>
+					<td style="-webkit-transition-delay:{{1 * 1000}}ms; background-color: {{c.cort}}; color: #FFFFFF; font-size: 12px">{{c.endMF}}</td>
+					<td style="-webkit-transition-delay:{{1 * 1000}}ms; background-color: {{c.cort}}; color: {{c.bitcor}}; font-size: 12px">{{c.bit}}</td>
 				</tr>
 			</table>
 			<!-- TABELA MEMÓRIA LÓGICA DE D-->
@@ -297,8 +297,8 @@
 				</thead>
 				<tr align="center" height="33" ng-repeat="d in processoD" style="font-size: 10px">
 					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{d.cor}}; color: #FFFFFF; font-size: 12px"  >{{d.pagina}}</td>
-					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{d.cort}}; color: #FFFFFF; font-size: 12px">{{d.endMF}}</td>
-					<td  style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{d.cort}}; color: {{d.bitcor}}; font-size: 12px">{{d.bit}}</td>
+					<td style="-webkit-transition-delay:{{1 * 1000}}ms; background-color: {{d.cort}}; color: #FFFFFF; font-size: 12px">{{d.endMF}}</td>
+					<td  style="-webkit-transition-delay:{{1 * 1000}}ms; background-color: {{d.cort}}; color: {{d.bitcor}}; font-size: 12px">{{d.bit}}</td>
 				</tr>
 			</table>
 		</div>
@@ -361,9 +361,12 @@
 		</div>
 	</div>
 
-	<div ng-show="mfisicaocupada >= 8"  class="col-sm-9 col-sm-offset-1" style="-webkit-transition-delay: 2s; font-size: 12px; float:down" >
+	<div ng-show="mfisicaocupada >= 8"  class="col-sm-9 col-sm-offset-1"" >
 		<div class="table-responsive"  >
-			<h5 class="alertafifo" style="text-align: left;">Lista de páginas FIFO</h5>
+			<div >
+				<h5 class="alertafifo" style="text-align: center; font-weight: bold;">Substituição de páginas FIFO</h5>
+
+			</div>
 			<table class="table" id="tabelaExec" border="2">
 				<tr height="33" style="text-align: center" >
 					<td style="font-size: 12px ; background: #2e2d2c;color: #FFFFFF">TimeStamp</td>
