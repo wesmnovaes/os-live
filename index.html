@@ -14,6 +14,7 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
 	<script data-require="angular-animate@1.6.0" data-semver="1.6.0"
 		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular-animate.js"></script>
+		
 	<script type="text/javascript" src="loader.js"></script>
 	<script src="node_modules/jquery/dist/jquery.min.js"></script>
 	<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -49,7 +50,7 @@
 				</li>
 				
 				<ul class="sub-menu .collapse.show" id="config">
-						<li data-toggle="collapse" data-target="#algoritmo" class="collapsed active"><b style="font-size: 15px">S</b>elecionar <b style="font-size: 15px">A</b>lgoritmo de <b style="font-size: 15px">E</b>scalonamento</li>
+						<li data-toggle="collapse" data-target="#algoritmo" class="collapsed active"><b style="font-size: 15px">S</b>elecionar <b style="font-size: 15px">A</b>lgoritmo de <b style="font-size: 15px">S</b>ubstituição</li>
 						<ul class="sub-menu .collapse.show in" id="algoritmo" style="margin-top: 6px ; margin-bottom: 6px">
 						<select class="form-control" id="selectAlgoritmo" name="selectAlgoritmo"
 							ng-model="escalonador" style="margin-top: 6px ; margin-bottom: 6px">
@@ -178,7 +179,8 @@
 				<tr heigth="5px" align="center"ng-repeat="a in processoA" style="font-size: 10px">
 					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{a.cor}}; color: #fff; font-size: 12px">{{a.pagina}}</td>
 					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{a.cor}}; color: #fff; font-size: 10px">
-						<button alt="Página fora da memóroria física" ng-if="!a.status" class="btn btn-light btn-xs"  ng-click="carregarPagina(processoA[a.pagina])"><i
+						
+						 <button alt="Página fora da memóroria física" ng-if="!a.status" class="btn btn-light btn-xs"  ng-click="carregarPagina(processoA[a.pagina])"><i
 							class="glyphicon glyphicon-remove"></i> {{a.nome}}</button>
 						<button alt="Página carregada na memóroria física" ng-if="a.status" class="btn btn-light btn-xs"  ng-click="removePagina(processoA[a.pagina])"><i
 								class="glyphicon glyphicon-ok"></i> {{a.nome}}</button>
@@ -359,18 +361,18 @@
 		</div>
 	</div>
 
-	<div class="col-sm-9 col-sm-offset-1" style="font-size: 12px;" >
+	<div ng-show="mfisicaocupada >= 0"  class="col-sm-9 col-sm-offset-1" style="-webkit-transition-delay: 2s; font-size: 12px;" >
 		<div class="table-responsive">
 			<h5 style="text-align: left;">Lista de páginas FIFO</h5>
 			<table class="table" id="tabelaExec" border="2">
 				<tr height="33" style="text-align: center" >
 					<td style="font-size: 12px ; background: #2e2d2c;color: #FFFFFF">TimeStamp</td>
-					<td ng-repeat="r in listaFIFO" style="font-size: 12px">{{r.horaCarga}}</td>
+					<td ng-repeat="r in listaFIFO" style="animation-delay: 500ms; font-size: 12px">{{r.horaCarga}}</td>
 				</tr>
-				<tr height="33"  style="text-align: center">
+				<tr  height="33"  style="text-align: center">
 					<td style="font-size: 12px ;background: rgb(63, 61, 61);color: #FFFFFF" >Página</td>
 					<td width="40" ng-repeat="p in listaFIFO" 
-						style="-webkit-transition-delay: 1s; background-color:{{p.cor}}; color: #FFFFFF; font-size: 12px">
+						style="animation-delay: 500ms; background-color:{{p.cor}}; color: #FFFFFF; font-size: 12px">
 						{{p.nome}}</td>
 				</tr>
 			</table>

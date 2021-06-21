@@ -5,8 +5,9 @@ angular.module("oslive", ['ngAnimate'])
 
 var carga = 1000;
 var cont = 100
-var mfisicaocupada = 0;
+ $scope.mfisicaocupada = 0;
 var aleatorio = false;
+var remove = false;
 var pc, cpu, pagina, time, corProcesso;
 
 //Definindo processos 
@@ -38,8 +39,6 @@ $scope.memoriaF = [
 //info é o valor da primeira posição do select "Selecione o Algoritmo de escalonamento"
 $scope.escalonador = "FIFO"
 $scope.listaFIFO=[];
-
-
 
 //////////////////////////CADASTAR PROCESSO E CRIAR MEMÓRIA LÓGICA E TABELA DE PÁGINAS////////////////
 $scope.cadastrar = function(processo){
@@ -81,7 +80,7 @@ $scope.criaPaginas = function(processo){
 			pag.cort = "#0780a769";
 			pag.bitcor = "#000"
 			$scope.processoA.push(pag);
-			if(i < 2 && mfisicaocupada < 8){
+			if(i < 2 && $scope.mfisicaocupada < 8){
 				$scope.carregarPagina($scope.processoA[i])
 			}
 		} if(processo.nome == "B"){
@@ -90,7 +89,7 @@ $scope.criaPaginas = function(processo){
 			pag.cort = "#78596469";
 			pag.bitcor = "#000"
 			$scope.processoB.push(pag);
-			if(i < 2 && mfisicaocupada < 8){
+			if(i < 2 && $scope.mfisicaocupada < 8){
 				$scope.carregarPagina($scope.processoB[i])
 			}
 		} if(processo.nome == "C"){
@@ -99,7 +98,7 @@ $scope.criaPaginas = function(processo){
 			pag.cort = "#bf565c69";
 			pag.bitcor = "#000"
 			$scope.processoC.push(pag);
-			if(i < 2 && mfisicaocupada < 8){
+			if(i < 2 && $scope.mfisicaocupada < 8){
 				$scope.carregarPagina($scope.processoC[i])
 			}
 		} if(processo.nome == "D"){
@@ -108,7 +107,7 @@ $scope.criaPaginas = function(processo){
 			pag.cort = "#4b706a66";
 			pag.bitcor = "#000"
 			$scope.processoD.push(pag);
-			if(i < 2 && mfisicaocupada < 8){
+			if(i < 2 && $scope.mfisicaocupada < 8){
 				$scope.carregarPagina($scope.processoD[i])
 			}
 		}
@@ -129,10 +128,12 @@ $scope.carregarPagina = function(processo){
 					pagina =  i;
 					
 				}else if(i == 7){
+					$.notify("Substituição de Paginas FIFO!", "sucess");
 					console.log("Olha eu aqui", $scope.listaFIFO)
 					$(".alerta").notify("Removendo página "+ $scope.listaFIFO[$scope.listaFIFO.length -1].nome +" da Memória Física", "info");
 					
 					var pag = $scope.listaFIFO[$scope.listaFIFO.length -1].nome;
+					
 					$scope.listaFIFO.pop();
 					$scope.memoriaF[pagina].nome = processo.nome;
 					$scope.memoriaF[pagina].cor = processo.cor;
@@ -180,13 +181,17 @@ $scope.carregarPagina = function(processo){
 				cont ++;
 				$(".glyphicon-cog").notify("Página "+ processo.nome +" carregada na memória física!" , "success");
 				console.log("Como esá o status",processo.status)
+
 				break;
 			}
 		}
-		mfisicaocupada++;
+		$scope.mfisicaocupada++;
+		
 	} else{
 		$(".glyphicon-cog").notify("Página "+ processo.nome +" Já está na memória!", "error");
 	}
+
+	
 	console.log("Como esá o status",processo.status)
 }
 
@@ -219,7 +224,7 @@ $scope.removePagina = function(pagina){
 
 	$scope.listaFIFO.splice(indiceFIFO,1);
 
-mfisicaocupada--;
+$scope.mfisicaocupada--;
 }
 
 $scope.excluir = function(processo,index){
@@ -236,7 +241,7 @@ $scope.excluir = function(processo,index){
 				$scope.memoriaF[indice].horaCarga = null;
 				$scope.memoriaF[indice].processoL = [];
 				$scope.listaFIFO.splice(indiceFIFO,1);
-				mfisicaocupada--;
+				$scope.mfisicaocupada--;
 			}
 			$scope.processoA.splice(0,1);
 		}
@@ -251,7 +256,7 @@ $scope.excluir = function(processo,index){
 				$scope.memoriaF[indice].horaCarga = null;
 				$scope.memoriaF[indice].processoL = [];
 				$scope.listaFIFO.splice(indiceFIFO,1);
-				mfisicaocupada--;
+				$scope.mfisicaocupada--;
 			}
 			$scope.processoB.splice(0,1);
 		}
@@ -266,7 +271,7 @@ $scope.excluir = function(processo,index){
 				$scope.memoriaF[indice].horaCarga = null;
 				$scope.memoriaF[indice].processoL = [];
 				$scope.listaFIFO.splice(indiceFIFO,1);
-				mfisicaocupada--;
+				$scope.mfisicaocupada--;
 			}
 			$scope.processoC.splice(0,1);
 		}
@@ -281,7 +286,7 @@ $scope.excluir = function(processo,index){
 				$scope.memoriaF[indice].horaCarga = null;
 				$scope.memoriaF[indice].processoL = [];
 				$scope.listaFIFO.splice(indiceFIFO,1);
-				mfisicaocupada--;
+				$scope.mfisicaocupada--;
 			}
 			$scope.processoD.splice(0,1);
 		}
@@ -338,7 +343,7 @@ $scope.cancelar = function(nome){
 }
 
 // função para exibição do tooltip
-$(document).ready(function(){
+jQuery(function(){
     $('[data-toggle=tooltip]').hover(function(){
 		// on mouseenter
 		$(this).tooltip('show');
@@ -366,7 +371,7 @@ $scope.geradorAleatorio = function(){
 		for (var i = 0; i < 4; i++) {
 			var processo = new Object();
 			processo.nome = listNomes[i];
-			processo.pagina = Math.round(Math.random() * 3) + 1
+			processo.pagina = Math.round(Math.random() * 2) + 2;
 			$scope.cadastrar(processo)
 			aleatorio = true;
 		}	
