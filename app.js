@@ -128,9 +128,10 @@ $scope.carregarPagina = function(processo){
 					pagina =  i;
 					
 				}else if(i == 7){
-					$.notify("Substituição de Paginas FIFO!", "sucess");
+					$(".alertafifo").notify("Menor time stamp: "+$scope.listaFIFO[$scope.listaFIFO.length -1].horaCarga+" página: "+$scope.listaFIFO[$scope.listaFIFO.length -1].nome, "info");
 					console.log("Olha eu aqui", $scope.listaFIFO)
-					$(".alerta").notify("Removendo página "+ $scope.listaFIFO[$scope.listaFIFO.length -1].nome +" da Memória Física", "info");
+					//$(".alerta").notify("Remove página: "+ $scope.listaFIFO[$scope.listaFIFO.length -1].nome +"\n Carrega página: "+processo.nome, "info");
+					$.notify("Substituição FIFO: Remove "+ $scope.listaFIFO[$scope.listaFIFO.length -1].nome +" -> Carrega: "+processo.nome, "success");
 					
 					var pag = $scope.listaFIFO[$scope.listaFIFO.length -1].nome;
 					
@@ -164,6 +165,7 @@ $scope.carregarPagina = function(processo){
 					$scope.memoriaF[pagina].processoL = processo;
 					cont ++;
 					carga = 1000;
+					
 				}
 				
 			} else if ($scope.memoriaF[i].nome == null) {
@@ -181,11 +183,16 @@ $scope.carregarPagina = function(processo){
 				cont ++;
 				$(".glyphicon-cog").notify("Página "+ processo.nome +" carregada na memória física!" , "success");
 				console.log("Como esá o status",processo.status)
-
+				$scope.mfisicaocupada++;
+				if($scope.mfisicaocupada ==8){
+					$.notify("MEMÓRIA FÍSICA CHEIA!\n Algoritmo de substituição FIFO Selecionado","info");
+				}
 				break;
 			}
 		}
-		$scope.mfisicaocupada++;
+		
+		console.log("MF OCUPADA: ", $scope.mfisicaocupada)
+		
 		
 	} else{
 		$(".glyphicon-cog").notify("Página "+ processo.nome +" Já está na memória!", "error");
@@ -223,6 +230,7 @@ $scope.removePagina = function(pagina){
 	$scope.memoriaF[indice].processoL = [];
 
 	$scope.listaFIFO.splice(indiceFIFO,1);
+	$(".glyphicon-cog").notify("Página "+ pag +" removida da memória física!" , "success");
 
 $scope.mfisicaocupada--;
 }
@@ -443,15 +451,13 @@ $scope.mediaTurn;
 				$scope.resultados = simulandoFIFO();
 				$scope.resultados2 = pc.tabelaResultado();
 				drawChart($scope.resultados2);
-				$.notify("Escalonamento FIFO!", "success");
+				$(".alertafifo").notify("Escalonamento FIFO!", "success");
 			}
-
 		}
 		else{
 			$(".glyphicon-cog").notify("Adicione os Processos!", {
 				position:"right" });
 		}
-
 	} 
 	else{
 		$(".glyphicon-cog").notify("Selecione o algoritmo!", {

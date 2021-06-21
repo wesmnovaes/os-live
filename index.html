@@ -183,7 +183,7 @@
 						 <button alt="Página fora da memóroria física" ng-if="!a.status" class="btn btn-light btn-xs"  ng-click="carregarPagina(processoA[a.pagina])"><i
 							class="glyphicon glyphicon-remove"></i> {{a.nome}}</button>
 						<button alt="Página carregada na memóroria física" ng-if="a.status" class="btn btn-light btn-xs"  ng-click="removePagina(processoA[a.pagina])"><i
-								class="glyphicon glyphicon-ok"></i> {{a.nome}}</button>
+								class="glyphicon glyphicon-ok"></i> {{a.nome}}</button> 
 					</td>
 				</tr>
 			</tbody>
@@ -361,9 +361,9 @@
 		</div>
 	</div>
 
-	<div ng-show="mfisicaocupada >= 0"  class="col-sm-9 col-sm-offset-1" style="-webkit-transition-delay: 2s; font-size: 12px;" >
-		<div class="table-responsive">
-			<h5 style="text-align: left;">Lista de páginas FIFO</h5>
+	<div ng-show="mfisicaocupada >= 8"  class="col-sm-9 col-sm-offset-1" style="-webkit-transition-delay: 2s; font-size: 12px; float:down" >
+		<div class="table-responsive"  >
+			<h5 class="alertafifo" style="text-align: left;">Lista de páginas FIFO</h5>
 			<table class="table" id="tabelaExec" border="2">
 				<tr height="33" style="text-align: center" >
 					<td style="font-size: 12px ; background: #2e2d2c;color: #FFFFFF">TimeStamp</td>
@@ -381,7 +381,7 @@
 
 	<!-- TABELA DE PAGINAS DO PROCESSO A-->
 	<footer id="rodape">
-	</footer>
+	</footer>	
 </body>
 
 </html>
