@@ -94,7 +94,7 @@
 							<div  id="botoes" align="center">
 								<button ng-show="!processo.edit" class="btn btn-success" id="btnCad" ng-click="cadastrar(processo)"><i
 										class="glyphicon glyphicon-plus-sign"></i> Criar</button>
-								<button class="btn btn-danger" id="btnCan" ng-click="limparForm()"><i
+								<button class="btn btn-danger" id="btnCan" ng-click="cancelar()"><i
 										class="glyphicon glyphicon-remove-sign"></i> Cancelar</button>
 							</div>
 						</form>
@@ -116,7 +116,7 @@
 										<td style="color: {{p.cor}}; width: 5px;"><i class="fa fa-square" aria-hidden="true"></i> &nbsp;<b style="color: black">{{p.nome}}</b></td>
 										<td>{{p.pagina}}</td>
 										<td>
-											<button type="button" class="btn btn-danger btn-xs" ng-click="excluir(p)">
+											<button type="button" class="btn btn-danger btn-xs" ng-click="excluir(p,$index)">
 												<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 											</button>
 										</td>
@@ -176,7 +176,7 @@
 				</thead>
 				<tbody  class="tbody">
 				<tr heigth="5px" align="center"ng-repeat="a in processoA" style="font-size: 10px">
-					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{a.cor}}; color: #fff; font-size: 11px">{{a.pagina}}</td>
+					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{a.cor}}; color: #fff; font-size: 12px">{{a.pagina}}</td>
 					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{a.cor}}; color: #fff; font-size: 10px">
 						<button alt="Página fora da memóroria física" ng-if="!a.status" class="btn btn-light btn-xs"  ng-click="carregarPagina(processoA[a.pagina])"><i
 							class="glyphicon glyphicon-remove"></i> {{a.nome}}</button>
@@ -196,9 +196,9 @@
 				</thead>
 				<tbody>
 					<tr align="center" height="33" ng-repeat="a in processoA" style="font-size: 10px">
-						<td  style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{a.cor}}; color: #FFFFFF; font-size: 11px" >{{a.pagina}}</td>
-						<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{a.cort}}; color: #FFFFFF; font-size: 11px">{{a.endMF}}</td>
-						<td  style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{a.cort}}; color: {{a.bitcor}}; font-size: 11px" >{{a.bit}}</td>
+						<td  style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{a.cor}}; color: #FFFFFF; font-size: 12px" >{{a.pagina}}</td>
+						<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{a.cort}}; color: #FFFFFF; font-size: 12px">{{a.endMF}}</td>
+						<td  style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{a.cort}}; color: {{a.bitcor}}; font-size: 12px" >{{a.bit}}</td>
 					</tr>
 				</tbody>
 				
@@ -212,7 +212,7 @@
 					<td>Conteúdo</td>
 				</thead>
 				<tr align="center"ng-repeat="b in processoB" style="font-size: 10px">
-					<td  style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{b.cor}}; color: #FFFFFF; font-size: 11px">{{b.pagina}}</td>
+					<td  style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{b.cor}}; color: #FFFFFF; font-size: 12px">{{b.pagina}}</td>
 					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{b.cor}}; color: #FFFFFF; font-size: 10px">
 						<button ng-if="!b.status" class="btn btn-light btn-xs"  ng-click="carregarPagina(processoB[b.pagina])"><i
 							class="glyphicon glyphicon-remove"></i> {{b.nome}}</button>
@@ -230,9 +230,9 @@
 					<td >bit</td>
 				</thead>
 				<tr align="center" height="33" ng-repeat="b in processoB" style="font-size: 10px">
-					<td  style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{b.cor}}; color: #FFFFFF; font-size: 11px" >{{b.pagina}}</td>
-					<td style="-webkit-transition-delay:{{1 * 1000}}ms; background-color: {{b.cort}}; color: #FFFFFF; font-size: 11px">{{b.endMF}}</td>
-					<td style="-webkit-transition-delay:{{1 * 1000}}ms; background-color: {{b.cort}}; color: {{b.bitcor}}; font-size: 11px">{{b.bit}}</td>
+					<td  style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{b.cor}}; color: #FFFFFF; font-size: 12px" >{{b.pagina}}</td>
+					<td style="-webkit-transition-delay:{{1 * 1000}}ms; background-color: {{b.cort}}; color: #FFFFFF; font-size: 12px">{{b.endMF}}</td>
+					<td style="-webkit-transition-delay:{{1 * 1000}}ms; background-color: {{b.cort}}; color: {{b.bitcor}}; font-size: 12px">{{b.bit}}</td>
 				</tr>
 			</table>
 		</div>
@@ -245,7 +245,7 @@
 					<td>Conteúdo</td>
 				</thead>
 				<tr align="center"ng-repeat="c in processoC" style="font-size: 10px">
-					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{c.cor}}; color: #FFFFFF; font-size: 11px">{{c.pagina}}</td>
+					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{c.cor}}; color: #FFFFFF; font-size: 12px">{{c.pagina}}</td>
 					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{c.cor}}; color: #FFFFFF; font-size: 10px">
 						<button ng-if="!c.status" class="btn btn-light btn-xs"  ng-click="carregarPagina(processoC[c.pagina])"><i
 							class="glyphicon glyphicon-remove"></i> {{c.nome}}</button>
@@ -263,9 +263,9 @@
 					<td >bit</td>
 				</thead>
 				<tr align="center" height="33" ng-repeat="c in processoC" style="font-size: 10px">
-					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{c.cor}}; color: #FFFFFF; font-size: 11px" >{{c.pagina}}</td>
-					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{c.cort}}; color: #FFFFFF; font-size: 11px">{{c.endMF}}</td>
-					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{c.cort}}; color: {{c.bitcor}}; font-size: 11px">{{c.bit}}</td>
+					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{c.cor}}; color: #FFFFFF; font-size: 12px" >{{c.pagina}}</td>
+					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{c.cort}}; color: #FFFFFF; font-size: 12px">{{c.endMF}}</td>
+					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{c.cort}}; color: {{c.bitcor}}; font-size: 12px">{{c.bit}}</td>
 				</tr>
 			</table>
 			<!-- TABELA MEMÓRIA LÓGICA DE D-->
@@ -276,7 +276,7 @@
 					<td>Conteúdo</td>
 				</thead>
 				<tr align="center"ng-repeat="d in processoD" style="font-size: 10px">
-					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{d.cor}}; color: #FFFFFF; font-size: 11px">{{d.pagina}}</td>
+					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{d.cor}}; color: #FFFFFF; font-size: 12px">{{d.pagina}}</td>
 					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{d.cor}}; color: #FFFFFF; font-size: 10px">
 						<button ng-if="!d.status" class="btn btn-light btn-xs"  ng-click="carregarPagina(processoD[d.pagina])"><i
 							class="glyphicon glyphicon-remove"></i> {{d.nome}}</button>
@@ -294,9 +294,9 @@
 					<td >bit</td>
 				</thead>
 				<tr align="center" height="33" ng-repeat="d in processoD" style="font-size: 10px">
-					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{d.cor}}; color: #FFFFFF; font-size: 11px"  >{{d.pagina}}</td>
-					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{d.cort}}; color: #FFFFFF; font-size: 11px">{{d.endMF}}</td>
-					<td  style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{d.cort}}; color: {{d.bitcor}}; font-size: 11px">{{d.bit}}</td>
+					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{d.cor}}; color: #FFFFFF; font-size: 12px"  >{{d.pagina}}</td>
+					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{d.cort}}; color: #FFFFFF; font-size: 12px">{{d.endMF}}</td>
+					<td  style="-webkit-transition-delay:{{1 * 500}}ms; background-color: {{d.cort}}; color: {{d.bitcor}}; font-size: 12px">{{d.bit}}</td>
 				</tr>
 			</table>
 		</div>
@@ -328,7 +328,7 @@
 						<td >Processo A</td>
 					</thead>
 					<tr align="center" height="33" ng-repeat="r in processoA" style="font-size: 10px">
-						<td style="-webkit-transition-delay:{{1 * 100}}ms; background-color:{{r.cor}}; color: #FFFFFF; font-size: 11px">{{r.nome}}</td>
+						<td style="-webkit-transition-delay:{{1 * 100}}ms; background-color:{{r.cor}}; color: #FFFFFF; font-size: 12px">{{r.nome}}</td>
 					</tr>
 				</table>
 				<table ng-show="processoB.length >0" align="center" class="table" id="tabelaExec">
@@ -336,7 +336,7 @@
 						<td >processo B</td>
 					</thead>
 					<tr align="center" height="33" ng-repeat="b in processoB" style="font-size: 10px">
-						<td style="-webkit-transition-delay:{{1 * 100}}ms; background-color:{{b.cor}}; color: #FFFFFF; font-size: 11px">{{b.nome}}</td>
+						<td style="-webkit-transition-delay:{{1 * 100}}ms; background-color:{{b.cor}}; color: #FFFFFF; font-size: 12px">{{b.nome}}</td>
 					</tr>
 				</table>
 				<table ng-show="processoC.length >0" align="center" class="table" id="tabelaExec">
@@ -344,7 +344,7 @@
 						<td >Processo C</td>
 					</thead>
 					<tr align="center" height="33" ng-repeat="c in processoC" style="font-size: 10px">
-						<td style="-webkit-transition-delay:{{1 * 100}}ms; background-color:{{c.cor}}; color: #FFFFFF; font-size: 11px">{{c.nome}}</td>
+						<td style="-webkit-transition-delay:{{1 * 100}}ms; background-color:{{c.cor}}; color: #FFFFFF; font-size: 12px">{{c.nome}}</td>
 					</tr>
 				</table>
 				<table  ng-show="processoD.length >0" align="center" class="table" id="tabelaExec">
@@ -352,7 +352,7 @@
 						<td >Processo D</td>
 					</thead>
 					<tr align="center" height="33" ng-repeat="d in processoD" style="font-size: 10px">
-						<td style="-webkit-transition-delay:{{1 * 100}}ms; background-color:{{d.cor}}; color: #FFFFFF; font-size: 11px">{{d.nome}}</td>
+						<td style="-webkit-transition-delay:{{1 * 100}}ms; background-color:{{d.cor}}; color: #FFFFFF; font-size: 12px">{{d.nome}}</td>
 					</tr>
 				</table>
 			</div>
@@ -364,11 +364,11 @@
 			<h5 style="text-align: left;">Lista de páginas FIFO</h5>
 			<table class="table" id="tabelaExec" border="2">
 				<tr height="33" style="text-align: center" >
-					<td style="font-size: 10px ; background: #2e2d2c;color: #FFFFFF">TimeStamp</td>
+					<td style="font-size: 12px ; background: #2e2d2c;color: #FFFFFF">TimeStamp</td>
 					<td ng-repeat="r in listaFIFO" style="font-size: 12px">{{r.horaCarga}}</td>
 				</tr>
 				<tr height="33"  style="text-align: center">
-					<td style="font-size: 10px ;background: rgb(63, 61, 61);color: #FFFFFF" >Página</td>
+					<td style="font-size: 12px ;background: rgb(63, 61, 61);color: #FFFFFF" >Página</td>
 					<td width="40" ng-repeat="p in listaFIFO" 
 						style="-webkit-transition-delay: 1s; background-color:{{p.cor}}; color: #FFFFFF; font-size: 12px">
 						{{p.nome}}</td>

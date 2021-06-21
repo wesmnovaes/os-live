@@ -6,6 +6,7 @@ angular.module("oslive", ['ngAnimate'])
 var carga = 1000;
 var cont = 100
 var mfisicaocupada = 0;
+var aleatorio = false;
 var pc, cpu, pagina, time, corProcesso;
 
 //Definindo processos 
@@ -42,11 +43,10 @@ $scope.listaFIFO=[];
 
 //////////////////////////CADASTAR PROCESSO E CRIAR MEMÓRIA LÓGICA E TABELA DE PÁGINAS////////////////
 $scope.cadastrar = function(processo){
-	processo.nome = processo.nome.toUpperCase();
-	if(!verificaID($scope.processo.nome)){
+	if(!verificaID(processo.nome) && !!processo.nome ){
 		console.log(processo, "Cadstrar")
 		$scope.criaPaginas(processo)
-		if($scope.processo.pagina != null){
+		if(processo.pagina != null){
 			var p = angular.copy(processo);
 			p.cor = corProcesso;
 			$scope.processos.push(p);
@@ -57,7 +57,7 @@ $scope.cadastrar = function(processo){
 			$(".glyphicon-cog").notify("Processo sem Páginas", "error");
 		}
 	} else{
-		$(".glyphicon-cog").notify("Processo já existe!", "error");
+		$(".glyphicon-cog").notify("Preencha todos os campos!", "info");
 	}
 }
 
@@ -67,14 +67,15 @@ $scope.criaPaginas = function(processo){
 	var paginasize = processo.pagina;
 
 	for (var i = 0; i < paginasize; i ++) {
-		var pag = angular.copy($scope.processo);
+		var pag = angular.copy(processo);
 		pag.nome = processo.nome+i;
 		pag.status = false;
 		pag.pagina =i;
 		pag.bit = "I";
 		pag.endMF = null;
 		console.log(processo.nome)
-		if($scope.processo.nome == "A"){
+		if(processo.nome == "A"){
+
 			corProcesso="#0780A7";
 			pag.cor = "#0780A7";
 			pag.cort = "#0780a769";
@@ -83,7 +84,7 @@ $scope.criaPaginas = function(processo){
 			if(i < 2 && mfisicaocupada < 8){
 				$scope.carregarPagina($scope.processoA[i])
 			}
-		} if($scope.processo.nome == "B"){
+		} if(processo.nome == "B"){
 			corProcesso="#785964"
 			pag.cor = "#785964"
 			pag.cort = "#78596469";
@@ -92,7 +93,7 @@ $scope.criaPaginas = function(processo){
 			if(i < 2 && mfisicaocupada < 8){
 				$scope.carregarPagina($scope.processoB[i])
 			}
-		} if($scope.processo.nome == "C"){
+		} if(processo.nome == "C"){
 			corProcesso="#bf565c"
 			pag.cor = "#bf565c"
 			pag.cort = "#bf565c69";
@@ -101,7 +102,7 @@ $scope.criaPaginas = function(processo){
 			if(i < 2 && mfisicaocupada < 8){
 				$scope.carregarPagina($scope.processoC[i])
 			}
-		} if($scope.processo.nome == "D"){
+		} if(processo.nome == "D"){
 			corProcesso="#4B706A"
 			pag.cor = "#4B706A"
 			pag.cort = "#4b706a66";
@@ -200,6 +201,7 @@ $scope.removePagina = function(pagina){
 	$scope.memoriaF[indice].processoL.status = false;
 	$scope.memoriaF[indice].processoL.endMF = null;
 	$scope.memoriaF[indice].processoL.bitcor = "#000";
+
 	if(pag.indexOf("A") != -1){
 		$scope.memoriaF[indice].processoL.cort = "#0780a769";
 	}else if(pag.indexOf("B") != -1){
@@ -222,25 +224,72 @@ mfisicaocupada--;
 
 $scope.excluir = function(processo,index){
 	var qtd = processo.pagina;
+	var procnome = processo.nome.substring(0,1);
 
 	if( processo.nome =="A"){
 		for(i = 0; i < qtd; i++){
-			var indice= $scope.processoA[i].endMF;
-			var indiceFIFO = $scope.listaFIFO.indexOf($scope.memoriaF[indice]);
-			$scope.memoriaF[indice].nome = null;
-			$scope.memoriaF[indice].cor = "#7FB174";
-			$scope.memoriaF[indice].horaCarga = null;
-			$scope.memoriaF[indice].processoL = [];
-			$scope.listaFIFO.splice(indiceFIFO,1);
-			$scope.pro
-
-			mfisicaocupada--;
+			if($scope.processoA[0].status){
+				var indice= $scope.processoA[0].endMF;
+				var indiceFIFO = $scope.listaFIFO.indexOf($scope.memoriaF[indice]);
+				$scope.memoriaF[indice].nome = null;
+				$scope.memoriaF[indice].cor = "#7FB174";
+				$scope.memoriaF[indice].horaCarga = null;
+				$scope.memoriaF[indice].processoL = [];
+				$scope.listaFIFO.splice(indiceFIFO,1);
+				mfisicaocupada--;
+			}
+			$scope.processoA.splice(0,1);
 		}
-
+	}
+	if( processo.nome =="B"){
+		for(i = 0; i < qtd; i++){
+			if($scope.processoB[0].status){
+				var indice= $scope.processoB[0].endMF;
+				var indiceFIFO = $scope.listaFIFO.indexOf($scope.memoriaF[indice]);
+				$scope.memoriaF[indice].nome = null;
+				$scope.memoriaF[indice].cor = "#7FB174";
+				$scope.memoriaF[indice].horaCarga = null;
+				$scope.memoriaF[indice].processoL = [];
+				$scope.listaFIFO.splice(indiceFIFO,1);
+				mfisicaocupada--;
+			}
+			$scope.processoB.splice(0,1);
+		}
+	}
+	if( processo.nome =="C"){
+		for(i = 0; i < qtd; i++){
+			if($scope.processoC[0].status){
+				var indice= $scope.processoC[0].endMF;
+				var indiceFIFO = $scope.listaFIFO.indexOf($scope.memoriaF[indice]);
+				$scope.memoriaF[indice].nome = null;
+				$scope.memoriaF[indice].cor = "#7FB174";
+				$scope.memoriaF[indice].horaCarga = null;
+				$scope.memoriaF[indice].processoL = [];
+				$scope.listaFIFO.splice(indiceFIFO,1);
+				mfisicaocupada--;
+			}
+			$scope.processoC.splice(0,1);
+		}
+	}
+	if( processo.nome =="D"){
+		for(i = 0; i < qtd; i++){
+			if($scope.processoD[0].status){
+				var indice= $scope.processoD[0].endMF;
+				var indiceFIFO = $scope.listaFIFO.indexOf($scope.memoriaF[indice]);
+				$scope.memoriaF[indice].nome = null;
+				$scope.memoriaF[indice].cor = "#7FB174";
+				$scope.memoriaF[indice].horaCarga = null;
+				$scope.memoriaF[indice].processoL = [];
+				$scope.listaFIFO.splice(indiceFIFO,1);
+				mfisicaocupada--;
+			}
+			$scope.processoD.splice(0,1);
+		}
 	}
 
-
 	$scope.processos.splice(index, 1);
+	$scope.nomeProcesso.push(procnome);
+	$scope.nomeProcesso.sort();
 
 }
 
@@ -283,6 +332,10 @@ $scope.limparForm = function(nome){
 	var indice = $scope.nomeProcesso.indexOf(nome)
 	$scope.nomeProcesso.splice(indice,1)
 }
+$scope.cancelar = function(nome){
+	$scope.processo.nome="";
+	$scope.processo.pagina=null;
+}
 
 // função para exibição do tooltip
 $(document).ready(function(){
@@ -307,18 +360,19 @@ $scope.limparListProcessos = function(){
 
 
 $scope.geradorAleatorio = function(){
-	$scope.processos = [];
-	$scope.proc = {};
-	listNomes = ["A", "B", "C", "D"];
-	for (var i = 0; i < 4; i++) {
-		$scope.proc.nome = listNomes[i];
-		$scope.proc.pagina = Math.round(Math.random() * 3) + 1;
-		$scope.proc.cor = gera_cor();
-		var procfim = angular.copy($scope.proc);
-		$scope.processos.push(procfim);
-		console.log(procfim, "gerador A");
-		$scope.criaPaginas($scope.processos[i])
-		
+	
+	if(!aleatorio){
+		listNomes = ["A", "B", "C", "D"];
+		for (var i = 0; i < 4; i++) {
+			var processo = new Object();
+			processo.nome = listNomes[i];
+			processo.pagina = Math.round(Math.random() * 3) + 1
+			$scope.cadastrar(processo)
+			aleatorio = true;
+		}	
+	}else{
+		$(".glyphicon-cog").notify("Todos os processo já foram criados!", "info");
+	
 	}
 }
 
