@@ -50,7 +50,7 @@
 				</li>
 				
 				<ul class="sub-menu .collapse.show" id="config">
-						<li data-toggle="collapse" data-target="#algoritmo" class="collapsed active"><b style="font-size: 15px">S</b>elecionar <b style="font-size: 15px">A</b>lgoritmo de <b style="font-size: 15px">S</b>ubstituição</li>
+						<li align="center" data-toggle="collapse" data-target="#algoritmo" class="collapsed active"><b style="font-size: 15px">S</b>elecionar <b style="font-size: 15px">A</b>lgoritmo de <b style="font-size: 15px">S</b>ubstituição</li>
 						<ul class="sub-menu .collapse.show in" id="algoritmo" style="margin-top: 6px ; margin-bottom: 6px">
 						<select class="form-control" id="selectAlgoritmo" name="selectAlgoritmo"
 							ng-model="escalonador" style="margin-top: 6px ; margin-bottom: 6px">
@@ -373,11 +373,15 @@
 							{{p.nome}}</td>
 					</tr>
 				</table>
-				<div ><p class="alertafifo"></p></div>
+				<div><p class="alertafifo"></p></div>
 			</div>
 		</div>
 	</div>
-
+	<script type="text/javascript">
+		$(function(){
+			$("alertafifo").remove();
+		});
+	</script>
 	<!-- TABELA DE PAGINAS DO PROCESSO A-->
 	<footer id="rodape">
 	</footer>	

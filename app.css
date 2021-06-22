@@ -95,8 +95,6 @@ thead td{
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
-
-
 }
 
 
@@ -163,7 +161,7 @@ thead td{
 }
 .nav-side-menu ul .sub-menu li,
 .nav-side-menu li .sub-menu li {
-  background-color: rgb(177, 192, 207);
+  background-color:#add8e6;
   border: none;
   line-height: 28px;
   border-bottom: 1px solid black;
@@ -176,7 +174,7 @@ thead td{
 .nav-side-menu ul .sub-menu li:before,
 .nav-side-menu li .sub-menu li:before {
   font-family: FontAwesome;
-  content: "\f105";
+  content: none;
   display: inline-block;
   padding-left: 10px;
   padding-right: 10px;
