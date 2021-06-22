@@ -116,6 +116,15 @@ $scope.criaPaginas = function(processo){
 	
 }
 
+$scope.paginaStatus= function(pagina){
+	console.log("AAAAAAAAAAAA", pagina)
+	if(pagina.status){
+		$scope.removePagina(pagina)
+	}else{
+		$scope.carregarPagina(pagina)
+	}
+}
+
 $scope.carregarPagina = function(processo){
 	
 	console.log(processo)
@@ -128,7 +137,7 @@ $scope.carregarPagina = function(processo){
 					pagina =  i;
 					
 				}else if(i == 7){
-					$(".alertafifo").notify("Menor time stamp: "+$scope.listaFIFO[$scope.listaFIFO.length -1].horaCarga+" página: "+$scope.listaFIFO[$scope.listaFIFO.length -1].nome, "info");
+					$(".alertafifo").notify("Menor time stamp: "+$scope.listaFIFO[$scope.listaFIFO.length -1].horaCarga+" página: "+$scope.listaFIFO[$scope.listaFIFO.length -1].nome,{ position: "right"}, "info");
 					console.log("Olha eu aqui", $scope.listaFIFO)
 					//$(".alerta").notify("Remove página: "+ $scope.listaFIFO[$scope.listaFIFO.length -1].nome +"\n Carrega página: "+processo.nome, "info");
 					$.notify("Substituição FIFO: Remove "+ $scope.listaFIFO[$scope.listaFIFO.length -1].nome +" -> Carrega: "+processo.nome, "success");
