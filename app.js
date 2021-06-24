@@ -43,7 +43,6 @@ $scope.listaFIFO=[];
 //////////////////////////CADASTAR PROCESSO E CRIAR MEMÓRIA LÓGICA E TABELA DE PÁGINAS////////////////
 $scope.cadastrar = function(processo){
 	if(!verificaID(processo.nome) && !!processo.nome ){
-		console.log(processo, "Cadstrar")
 		$scope.criaPaginas(processo)
 		if(processo.pagina != null){
 			var p = angular.copy(processo);
@@ -62,7 +61,6 @@ $scope.cadastrar = function(processo){
 
 
 $scope.criaPaginas = function(processo){
-	console.log(processo, "Cria Paginas")
 	var paginasize = processo.pagina;
 
 	for (var i = 0; i < paginasize; i ++) {
@@ -72,7 +70,6 @@ $scope.criaPaginas = function(processo){
 		pag.pagina =i;
 		pag.bit = "I";
 		pag.endMF = null;
-		console.log(processo.nome)
 		if(processo.nome == "A"){
 
 			corProcesso="#0780A7";
@@ -117,7 +114,6 @@ $scope.criaPaginas = function(processo){
 }
 
 $scope.paginaStatus= function(pagina){
-	console.log("AAAAAAAAAAAA", pagina)
 	if(pagina.status){
 		$scope.removePagina(pagina)
 	}else{
@@ -127,22 +123,22 @@ $scope.paginaStatus= function(pagina){
 
 $scope.carregarPagina = function(processo){
 	
-	console.log(processo)
 	if(!verificaPagina(processo.nome)){
 		for (var i = 0; i < $scope.memoriaF.length; i ++) {
-			console.log($scope.processoB.includes(processo));
 			if($scope.memoriaF[i].nome != null){
+				console.log("i = ",i," Carga da MF",$scope.memoriaF[i].horaCarga, "< var Carga ", carga )
 				if($scope.memoriaF[i].horaCarga < carga){
 					carga = $scope.memoriaF[i].horaCarga;
 					pagina =  i;
+					console.log("compara carga - Carga atual: ", carga, "página da carga", pagina)
 					
 				}else if(i == 7){
-					$(".alertafifo").notify("Menor time stamp: "+$scope.listaFIFO[$scope.listaFIFO.length -1].horaCarga+"\n Página "+$scope.listaFIFO[$scope.listaFIFO.length -1].nome+" retirada da memória",{ position: "right middle"}, "info");
-					console.log("Olha eu aqui", $scope.listaFIFO)
+					console.log("Memória F anes da troca:",$scope.memoriaF)
+					$(".alertafifo").notify("Menor time stamp: "+$scope.listaFIFO[$scope.listaFIFO.length -1].horaCarga+"\n Página "+$scope.listaFIFO[$scope.listaFIFO.length -1].nome+" retirada da memória",{position:"top right",autoHideDelay: 7000} );
 					//$(".alerta").notify("Remove página: "+ $scope.listaFIFO[$scope.listaFIFO.length -1].nome +"\n Carrega página: "+processo.nome, "info");
-					$.notify("Substituição FIFO: Remove "+ $scope.listaFIFO[$scope.listaFIFO.length -1].nome +" -> Carrega: "+processo.nome, "success");
-					
+					$(".alertamf").notify("Substituição FIFO:\n Remove "+ $scope.listaFIFO[$scope.listaFIFO.length -1].nome +" -> Carrega: "+processo.nome, {className: 'success',position:"bottom center",autoHideDelay: 10000});
 					var pag = $scope.listaFIFO[$scope.listaFIFO.length -1].nome;
+					console.log("Troca pagina", pagina, " pag", pag, "Lista FFIFO",$scope.listaFIFO )
 					
 					$scope.listaFIFO.pop();
 					$scope.memoriaF[pagina].nome = processo.nome;
@@ -165,7 +161,6 @@ $scope.carregarPagina = function(processo){
 					$scope.listaFIFO.unshift($scope.memoriaF[pagina])
 
 
-					console.log($scope.memoriaF[pagina].processoL)
 					processo.cort = processo.cor;
 					processo.status = true;
 					processo.bitcor = "#FFFFFF"
@@ -191,25 +186,16 @@ $scope.carregarPagina = function(processo){
 				processo.endMF = $scope.memoriaF[i].paginaf;
 				cont ++;
 				$(".glyphicon-cog").notify("Página "+ processo.nome +" carregada na memória física!" , "success");
-				console.log("Como esá o status",processo.status)
 				$scope.mfisicaocupada++;
 				if($scope.mfisicaocupada ==8){
-					$(".alerta").notify(
-						"Memória física cheia!",{position:"top center"});
+					$(".alerta").notify("Memória física cheia!",{position:"top center",type:"warn"});
 				}
 				break;
 			}
 		}
-		
-		console.log("MF OCUPADA: ", $scope.mfisicaocupada)
-		
-		
 	} else{
 		$(".glyphicon-cog").notify("Página "+ processo.nome +" Já está na memória!", "error");
 	}
-
-	
-	console.log("Como esá o status",processo.status)
 }
 
 $scope.removePagina = function(pagina){
@@ -238,7 +224,6 @@ $scope.removePagina = function(pagina){
 	$scope.memoriaF[indice].cor = "#7FB174";
 	$scope.memoriaF[indice].horaCarga = null;
 	$scope.memoriaF[indice].processoL = [];
-
 	$scope.listaFIFO.splice(indiceFIFO,1);
 	$(".glyphicon-cog").notify("Página "+ pag +" removida da memória física!" , "success");
 
@@ -246,6 +231,7 @@ $scope.mfisicaocupada--;
 }
 
 $scope.excluir = function(processo,index){
+	console.log(processo,index)
 	var qtd = processo.pagina;
 	var procnome = processo.nome.substring(0,1);
 
@@ -254,6 +240,8 @@ $scope.excluir = function(processo,index){
 			if($scope.processoA[0].status){
 				var indice= $scope.processoA[0].endMF;
 				var indiceFIFO = $scope.listaFIFO.indexOf($scope.memoriaF[indice]);
+				console.log("indice fifo",$scope.listaFIFO.indexOf($scope.memoriaF[indice]))
+				console.log(indice)
 				$scope.memoriaF[indice].nome = null;
 				$scope.memoriaF[indice].cor = "#7FB174";
 				$scope.memoriaF[indice].horaCarga = null;
@@ -314,12 +302,27 @@ $scope.excluir = function(processo,index){
 	$scope.nomeProcesso.push(procnome);
 	$scope.nomeProcesso.sort();
 
+	carga = $scope.trocaCarga(cont)
+
 }
 
 	
 	
-trocaBit = function(pagina){
-
+$scope.trocaCarga = function(tstamp){
+	console.log("chegada time stamp:",tstamp );
+	
+	for(i =0; i< $scope.memoriaF.length; i++){
+		if($scope.memoriaF[i].horaCarga < tstamp){
+			console.log($scope.memoriaF[i].horaCarga)
+			tstamp = $scope.memoriaF[i].horaCarga;
+		}
+	}
+	console.log("Menor time stamp:",tstamp );
+	if(tstamp == null){
+		return 1000;
+	}else{
+		return tstamp;
+	}
 }
 
 /////////////////////////////////////////
