@@ -105,12 +105,13 @@ thead td{
   width: 73%;
 }
 
-.lardisco{
+
+
+.lar{
   width: 35%;
   justify-content: space-around;
-  margin-right: 20px;
+  margin-right: 5px;
 }
-
 
 .nav-side-menu {
   overflow: auto;
