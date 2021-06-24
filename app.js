@@ -77,7 +77,7 @@ $scope.criaPaginas = function(processo){
 			pag.cort = "#0780a769";
 			pag.bitcor = "#000"
 			$scope.processoA.push(pag);
-			if(i < 2 && $scope.mfisicaocupada < 8){
+			if(i < 2){
 				$scope.carregarPagina($scope.processoA[i])
 			}
 		} if(processo.nome == "B"){
@@ -86,7 +86,7 @@ $scope.criaPaginas = function(processo){
 			pag.cort = "#78596469";
 			pag.bitcor = "#000"
 			$scope.processoB.push(pag);
-			if(i < 2 && $scope.mfisicaocupada < 8){
+			if(i < 2){
 				$scope.carregarPagina($scope.processoB[i])
 			}
 		} if(processo.nome == "C"){
@@ -95,7 +95,7 @@ $scope.criaPaginas = function(processo){
 			pag.cort = "#bf565c69";
 			pag.bitcor = "#000"
 			$scope.processoC.push(pag);
-			if(i < 2 && $scope.mfisicaocupada < 8){
+			if(i < 2){
 				$scope.carregarPagina($scope.processoC[i])
 			}
 		} if(processo.nome == "D"){
@@ -104,7 +104,7 @@ $scope.criaPaginas = function(processo){
 			pag.cort = "#4b706a66";
 			pag.bitcor = "#000"
 			$scope.processoD.push(pag);
-			if(i < 2 && $scope.mfisicaocupada < 8){
+			if(i < 2){
 				$scope.carregarPagina($scope.processoD[i])
 			}
 		}
@@ -134,9 +134,11 @@ $scope.carregarPagina = function(processo){
 					
 				}else if(i == 7){
 					console.log("Memória F anes da troca:",$scope.memoriaF)
-					$(".alertafifo").notify("Menor time stamp: "+$scope.listaFIFO[$scope.listaFIFO.length -1].horaCarga+"\n Página "+$scope.listaFIFO[$scope.listaFIFO.length -1].nome+" retirada da memória",{position:"top right",autoHideDelay: 7000} );
-					//$(".alerta").notify("Remove página: "+ $scope.listaFIFO[$scope.listaFIFO.length -1].nome +"\n Carrega página: "+processo.nome, "info");
+
+					$(".alertafifo").notify("Menor time stamp: "+$scope.listaFIFO[$scope.listaFIFO.length -1].horaCarga+"\n Página "+$scope.listaFIFO[$scope.listaFIFO.length -1].nome+" retirada da memória",{position:"top center",autoHideDelay: 7000} );
 					$(".alertamf").notify("Substituição FIFO:\n Remove "+ $scope.listaFIFO[$scope.listaFIFO.length -1].nome +" -> Carrega: "+processo.nome, {className: 'success',position:"bottom center",autoHideDelay: 10000});
+					
+					//$(".alerta").notify("Remove página: "+ $scope.listaFIFO[$scope.listaFIFO.length -1].nome +"\n Carrega página: "+processo.nome, "info");
 					var pag = $scope.listaFIFO[$scope.listaFIFO.length -1].nome;
 					console.log("Troca pagina", pagina, " pag", pag, "Lista FFIFO",$scope.listaFIFO )
 					

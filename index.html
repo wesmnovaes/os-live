@@ -233,7 +233,8 @@
 					<td style="-webkit-transition-delay:{{1 * 1000}}ms; background-color: {{b.cort}}; color: {{b.bitcor}}; font-size: 12px">{{b.bit}}</td>
 				</tr>
 			</table>
-	
+			</div>
+			<div class="linha">
 			<!-- TABELA MEMÓRIA LÓGICA DE C-->
 			<table ng-show="processoC.length >0"  align="center" class="table" id="tabelaExec">
 				<caption>Mem. Lógica</caption>
@@ -315,7 +316,7 @@
 		</div>
 
 		<!--DDISCO COM PÁGINAS DOS PROCESSOS-->
-		<div class="table-responsive lar" style="background-color: rgb(230, 228, 228);" >
+		<div class="table-responsive lardisco" style="background-color: rgb(230, 228, 228);" >
 			<h5>Disco</h5>
 			<div align="center" class="linha">
 				<table ng-show="processoA.length >0" align="center" class="table" id="tabelaExec">
@@ -356,8 +357,7 @@
 		</div>
 	</div>
 
-	<div ng-show="mfisicaocupada >= 0"  class="col-sm-9 col-sm-offset-1" >
-		<div class="table-responsive"  >
+		<div class="fifo">
 			<div >
 				<h5 style="text-align: center; font-weight: bold;"> Informações para o algoritmos de Substituição de páginas FIFO</h5>
 			</div>
@@ -375,9 +375,9 @@
 					</tr>
 				</table>
 				<div><p class="alertafifo"></p></div>
+
 			</div>
 		</div>
-	</div>
 	<script type="text/javascript">
 		$(function(){
 			$("alertafifo").remove();

@@ -97,6 +97,19 @@ thead td{
     justify-content: center;
 }
 
+.fifo{
+  position: absolute;
+  bottom: 0%;
+  margin-left: 351px;
+  align-items: center;
+  width: 73%;
+}
+
+.lardisco{
+  width: 35%;
+  justify-content: space-around;
+  margin-right: 20px;
+}
 
 .lar{
   width: 35%;
@@ -211,8 +224,6 @@ thead td{
 
   }
    
-  
-
   .table-bordered{
     margin-left: 10px !important;
   }
