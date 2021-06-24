@@ -233,8 +233,7 @@
 					<td style="-webkit-transition-delay:{{1 * 1000}}ms; background-color: {{b.cort}}; color: {{b.bitcor}}; font-size: 12px">{{b.bit}}</td>
 				</tr>
 			</table>
-		</div>
-		<div class="linha">
+	
 			<!-- TABELA MEMÓRIA LÓGICA DE C-->
 			<table ng-show="processoC.length >0"  align="center" class="table" id="tabelaExec">
 				<caption>Mem. Lógica</caption>
@@ -335,22 +334,24 @@
 						<td style="-webkit-transition-delay:{{1 * 100}}ms; background-color:{{b.cor}}; color: #FFFFFF; font-size: 12px">{{b.nome}}</td>
 					</tr>
 				</table>
-				<table ng-show="processoC.length >0" align="center" class="table" id="tabelaExec">
-					<thead >
-						<td >Processo C</td>
-					</thead>
-					<tr align="center" height="33" ng-repeat="c in processoC" style="font-size: 10px">
-						<td style="-webkit-transition-delay:{{1 * 100}}ms; background-color:{{c.cor}}; color: #FFFFFF; font-size: 12px">{{c.nome}}</td>
-					</tr>
-				</table>
-				<table  ng-show="processoD.length >0" align="center" class="table" id="tabelaExec">
-					<thead >
-						<td >Processo D</td>
-					</thead>
-					<tr align="center" height="33" ng-repeat="d in processoD" style="font-size: 10px">
-						<td style="-webkit-transition-delay:{{1 * 100}}ms; background-color:{{d.cor}}; color: #FFFFFF; font-size: 12px">{{d.nome}}</td>
-					</tr>
-				</table>
+			</div>
+			<div align="center" class="linha">
+					<table ng-show="processoC.length >0" align="center" class="table" id="tabelaExec">
+						<thead >
+							<td >Processo C</td>
+						</thead>
+						<tr align="center" height="33" ng-repeat="c in processoC" style="font-size: 10px">
+							<td style="-webkit-transition-delay:{{1 * 100}}ms; background-color:{{c.cor}}; color: #FFFFFF; font-size: 12px">{{c.nome}}</td>
+						</tr>
+					</table>
+					<table  ng-show="processoD.length >0" align="center" class="table" id="tabelaExec">
+						<thead >
+							<td >Processo D</td>
+						</thead>
+						<tr align="center" height="33" ng-repeat="d in processoD" style="font-size: 10px">
+							<td style="-webkit-transition-delay:{{1 * 100}}ms; background-color:{{d.cor}}; color: #FFFFFF; font-size: 12px">{{d.nome}}</td>
+						</tr>
+					</table>
 			</div>
 		</div>
 	</div>
