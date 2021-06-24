@@ -180,8 +180,7 @@
 					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{a.cor}}; color: #fff; font-size: 12px">{{a.pagina}}</td>
 					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{a.cor}}; color: #fff; font-size: 10px">
 						 <button alt="Página fora da memóroria física" class="btn btn-light btn-xs"  ng-click="paginaStatus(processoA[a.pagina])"><i
-							ng-class="{'glyphicon glyphicon-ok': a.status, 'glyphicon glyphicon-remove': !a.status}" ></i> {{a.nome}}</button>
-
+						ng-class="{'glyphicon glyphicon-ok': a.status, 'glyphicon glyphicon-remove': !a.status}" ></i> {{a.nome}}</button>
 					</td>
 				</tr>
 			</tbody>
@@ -215,7 +214,7 @@
 					<td  style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{b.cor}}; color: #FFFFFF; font-size: 12px">{{b.pagina}}</td>
 					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{b.cor}}; color: #FFFFFF; font-size: 10px">
 						<button  class="btn btn-light btn-xs"  ng-click="paginaStatus(processoB[b.pagina])"><i
-							ng-class="{'glyphicon glyphicon-ok': a.status, 'glyphicon glyphicon-remove': !a.status}"></i> {{b.nome}}</button>
+							ng-class="{'glyphicon glyphicon-ok': b.status, 'glyphicon glyphicon-remove': !b.status}"></i> {{b.nome}}</button>
 						
 					</td>
 				</tr>
@@ -247,7 +246,7 @@
 					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{c.cor}}; color: #FFFFFF; font-size: 12px">{{c.pagina}}</td>
 					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{c.cor}}; color: #FFFFFF; font-size: 10px">
 						<button class="btn btn-light btn-xs"  ng-click="paginaStatus(processoC[c.pagina])"><i
-							ng-class="{'glyphicon glyphicon-ok': a.status, 'glyphicon glyphicon-remove': !a.status}"></i> {{c.nome}}</button>
+							ng-class="{'glyphicon glyphicon-ok': c.status, 'glyphicon glyphicon-remove': !c.status}"></i> {{c.nome}}</button>
 						
 					</td>
 				</tr>
@@ -277,7 +276,7 @@
 					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{d.cor}}; color: #FFFFFF; font-size: 12px">{{d.pagina}}</td>
 					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{d.cor}}; color: #FFFFFF; font-size: 10px">
 						<button class="btn btn-light btn-xs"  ng-click="paginaStatus(processoD[d.pagina])"><i
-							ng-class="{'glyphicon glyphicon-ok': a.status, 'glyphicon glyphicon-remove': !a.status}"></i> {{d.nome}}</button>
+							ng-class="{'glyphicon glyphicon-ok': d.status, 'glyphicon glyphicon-remove': !d.status}"></i> {{d.nome}}</button>
 						
 				</tr>
 			</table>
@@ -315,7 +314,7 @@
 			</table>
 		</div>
 
-		
+		<!--DDISCO COM PÁGINAS DOS PROCESSOS-->
 		<div class="table-responsive lar" style="background-color: rgb(230, 228, 228);" >
 			<h5>Disco</h5>
 			<div align="center" class="linha">
@@ -355,12 +354,12 @@
 		</div>
 	</div>
 
-	<div ng-show="mfisicaocupada >= 8"  class="col-sm-9 col-sm-offset-1" >
+	<div ng-show="mfisicaocupada >= 0"  class="col-sm-9 col-sm-offset-1" >
 		<div class="table-responsive"  >
 			<div >
 				<h5 style="text-align: center; font-weight: bold;">Substituição de páginas FIFO</h5>
 			</div>
-			<div class="linha">
+			<div align="center" class="linha">
 				<table class="table" id="tabelaExec" border="2">
 					<tr height="33" style="text-align: center" >
 						<td style="font-size: 12px ; background: #2e2d2c;color: #FFFFFF">TimeStamp</td>

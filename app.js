@@ -137,7 +137,7 @@ $scope.carregarPagina = function(processo){
 					pagina =  i;
 					
 				}else if(i == 7){
-					$(".alertafifo").notify("Menor time stamp: "+$scope.listaFIFO[$scope.listaFIFO.length -1].horaCarga+" página: "+$scope.listaFIFO[$scope.listaFIFO.length -1].nome,{ position: "right"}, "info");
+					$(".alertafifo").notify("Menor time stamp: "+$scope.listaFIFO[$scope.listaFIFO.length -1].horaCarga+"\n Página "+$scope.listaFIFO[$scope.listaFIFO.length -1].nome+" retirada da memória",{ position: "right middle"}, "info");
 					console.log("Olha eu aqui", $scope.listaFIFO)
 					//$(".alerta").notify("Remove página: "+ $scope.listaFIFO[$scope.listaFIFO.length -1].nome +"\n Carrega página: "+processo.nome, "info");
 					$.notify("Substituição FIFO: Remove "+ $scope.listaFIFO[$scope.listaFIFO.length -1].nome +" -> Carrega: "+processo.nome, "success");
@@ -194,7 +194,8 @@ $scope.carregarPagina = function(processo){
 				console.log("Como esá o status",processo.status)
 				$scope.mfisicaocupada++;
 				if($scope.mfisicaocupada ==8){
-					$.notify("MEMÓRIA FÍSICA CHEIA!\n Algoritmo de substituição FIFO Selecionado","info");
+					$(".alerta").notify(
+						"Memória física cheia!",{position:"top center"});
 				}
 				break;
 			}
