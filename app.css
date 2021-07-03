@@ -82,8 +82,8 @@ thead td{
 }
 
 .col-sm-9{
-    height: 90%;
-    margin-left: 351px;
+    height: 50%;
+    margin-left: 340px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -105,12 +105,10 @@ thead td{
   width: 73%;
 }
 
-
-
 .lar{
   width: 35%;
   justify-content: space-around;
-  margin-right: 5px;
+  margin: 5px;
 }
 
 .nav-side-menu {

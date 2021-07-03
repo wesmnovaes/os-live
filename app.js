@@ -139,10 +139,10 @@ $scope.carregarPagina = function(processo){
 					$(".alertamf").notify("Substituição FIFO:\n Remove "+ $scope.listaFIFO[$scope.listaFIFO.length -1].nome +" -> Carrega: "+processo.nome, {className: 'success',position:"bottom center",autoHideDelay: 10000});
 					
 					//$(".alerta").notify("Remove página: "+ $scope.listaFIFO[$scope.listaFIFO.length -1].nome +"\n Carrega página: "+processo.nome, "info");
-					var pag = $scope.listaFIFO[$scope.listaFIFO.length -1].nome;
+					var pag = $scope.listaFIFO[0].nome;
 					console.log("Troca pagina", pagina, " pag", pag, "Lista FFIFO",$scope.listaFIFO )
 					
-					$scope.listaFIFO.pop();
+					$scope.listaFIFO.shift();
 					$scope.memoriaF[pagina].nome = processo.nome;
 					$scope.memoriaF[pagina].cor = processo.cor;
 					$scope.memoriaF[pagina].horaCarga = cont;
@@ -160,7 +160,7 @@ $scope.carregarPagina = function(processo){
 						$scope.memoriaF[pagina].processoL.cort = "#4b706a66";
 						
 					}
-					$scope.listaFIFO.unshift($scope.memoriaF[pagina])
+					$scope.listaFIFO.push($scope.memoriaF[pagina])
 
 
 					processo.cort = processo.cor;
@@ -180,7 +180,8 @@ $scope.carregarPagina = function(processo){
 				$scope.memoriaF[i].cor = processo.cor;
 				$scope.memoriaF[i].horaCarga = cont;
 				$scope.memoriaF[i].processoL = processo;
-				$scope.listaFIFO.unshift($scope.memoriaF[i])
+				$scope.listaFIFO.push($scope.memoriaF[i])
+				console.log("Lista FIFO:", $scope.listaFIFO)
 				processo.cort = processo.cor;
 				processo.status = true;
 				processo.bitcor = "#FFFFFF"
