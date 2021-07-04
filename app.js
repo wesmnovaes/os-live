@@ -135,8 +135,8 @@ $scope.carregarPagina = function(processo){
 				}else if(i == 7){
 					console.log("Memória F anes da troca:",$scope.memoriaF)
 
-					$(".alertafifo").notify("Menor time stamp: "+$scope.listaFIFO[0].horaCarga+"\n Página "+$scope.listaFIFO[0].nome+" retirada da memória",{position:"top center",autoHideDelay: 7000} );
-					$(".alertamf").notify("Substituição FIFO:\n Remove "+ $scope.listaFIFO[0].nome +" -> Carrega: "+processo.nome, {className: 'success',position:"bottom center",autoHideDelay: 10000});
+					$(".alertafifo").notify("Menor time stamp: "+$scope.listaFIFO[0].horaCarga+"\n Página "+$scope.listaFIFO[0].nome+" retirada da memória",{arrowSize: 7,position:"top center",autoHideDelay: 7000} );
+					$(".alertamf").notify("Substituição FIFO:\n Remove "+ $scope.listaFIFO[0].nome +" -> Carrega: "+processo.nome, {arrowSize: 7,className: 'success',position:"bottom center",autoHideDelay: 10000});
 					
 					//$(".alerta").notify("Remove página: "+ $scope.listaFIFO[$scope.listaFIFO.length -1].nome +"\n Carrega página: "+processo.nome, "info");
 					var pag = $scope.listaFIFO[0].nome;
