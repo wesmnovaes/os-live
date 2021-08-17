@@ -240,6 +240,7 @@ $scope.excluir = function(processo,index){
 
 	if( processo.nome =="A"){
 		for(i = 0; i < qtd; i++){
+			
 			if($scope.processoA[0].status){
 				var indice= $scope.processoA[0].endMF;
 				var indiceFIFO = $scope.listaFIFO.indexOf($scope.memoriaF[indice]);
@@ -306,6 +307,7 @@ $scope.excluir = function(processo,index){
 	$scope.nomeProcesso.sort();
 
 	carga = $scope.trocaCarga(cont)
+	aleatorio = false;
 
 }
 
