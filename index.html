@@ -176,7 +176,7 @@
 					<td height="30.5">Conteúdo</td>
 				</thead>
 				<tbody  class="tbody">
-				<tr heigth="5px" align="center"ng-repeat="a in processoA" style="font-size: 10px">
+				<tr height="33" align="center"ng-repeat="a in processoA" style="font-size: 10px">
 					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{a.cor}}; color: #fff; font-size: 12px">{{a.pagina}}</td>
 					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{a.cor}}; color: #fff; font-size: 10px">
 						 <button alt="Página fora da memóroria física" class="btn btn-light btn-xs"  ng-click="paginaStatus(processoA[a.pagina])"><i
@@ -210,7 +210,7 @@
 					<td>Pág</td>
 					<td>Conteúdo</td>
 				</thead>
-				<tr align="center"ng-repeat="b in processoB" style="font-size: 10px">
+				<tr height="33" align="center"ng-repeat="b in processoB" style="font-size: 10px">
 					<td  style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{b.cor}}; color: #FFFFFF; font-size: 12px">{{b.pagina}}</td>
 					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{b.cor}}; color: #FFFFFF; font-size: 10px">
 						<button  class="btn btn-light btn-xs"  ng-click="paginaStatus(processoB[b.pagina])"><i

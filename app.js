@@ -5,7 +5,7 @@ angular.module("oslive", ['ngAnimate'])
 
 var carga = 1000;
 var cont = 100
- $scope.mfisicaocupada = 0;
+$scope.mfisicaocupada = 0;
 var aleatorio = false;
 var remove = false;
 var pc, cpu, pagina, time, corProcesso;
@@ -59,7 +59,7 @@ $scope.cadastrar = function(processo){
 	}
 }
 
-
+// Criar as Páginas dos processos
 $scope.criaPaginas = function(processo){
 	var paginasize = processo.pagina;
 
@@ -112,7 +112,7 @@ $scope.criaPaginas = function(processo){
 
 	
 }
-
+//Verifica se a página está carregada
 $scope.paginaStatus= function(pagina){
 	if(pagina.status){
 		$scope.removePagina(pagina)
@@ -121,6 +121,7 @@ $scope.paginaStatus= function(pagina){
 	}
 }
 
+//Carrega página na Memória física
 $scope.carregarPagina = function(processo){
 	
 	if(!verificaPagina(processo.nome)){
@@ -161,8 +162,6 @@ $scope.carregarPagina = function(processo){
 						
 					}
 					$scope.listaFIFO.push($scope.memoriaF[pagina])
-
-
 					processo.cort = processo.cor;
 					processo.status = true;
 					processo.bitcor = "#FFFFFF"
@@ -201,9 +200,9 @@ $scope.carregarPagina = function(processo){
 	}
 }
 
-$scope.removePagina = function(pagina){
+//Remove página da memória física
 
-	
+$scope.removePagina = function(pagina){
 	var indice = pagina.endMF;
 	pag = pagina.nome;
 	var indiceFIFO = $scope.listaFIFO.indexOf($scope.memoriaF[indice]);
@@ -233,6 +232,7 @@ $scope.removePagina = function(pagina){
 $scope.mfisicaocupada--;
 }
 
+// Exclui processo 
 $scope.excluir = function(processo,index){
 	console.log(processo,index)
 	var qtd = processo.pagina;
@@ -312,7 +312,7 @@ $scope.excluir = function(processo,index){
 }
 
 	
-	
+//Controlar tempo de carga	
 $scope.trocaCarga = function(tstamp){
 	console.log("chegada time stamp:",tstamp );
 	
