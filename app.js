@@ -471,6 +471,12 @@ $scope.mediaTurn;
 				drawChart($scope.resultados2);
 				$(".alertafifo").notify("Escalonamento FIFO!", "success");
 			}
+			if(algoritmo == "SEGUNDACHANCE"){
+				$scope.resultados = simulandoSegundaChance();
+				$scope.resultados2 = pc.tabelaResultado();
+				drawChart($scope.resultados2);
+				$(".alertafifo").notify("Escalonamento Segunda Chance!", "success");
+			}
 		}
 		else{
 			$(".glyphicon-cog").notify("Adicione os Processos!", {
