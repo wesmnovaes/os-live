@@ -1,4 +1,3 @@
-
 angular.module("oslive", ['ngAnimate'])
 
 .controller('homeController', function($scope){
@@ -37,7 +36,7 @@ $scope.memoriaF = [
 ];
 
 //info é o valor da primeira posição do select "Selecione o Algoritmo de escalonamento"
-$scope.escalonador = "FIFO"
+//$scope.escalonador = "FIFO"
 $scope.listaFIFO=[];
 
 //////////////////////////CADASTAR PROCESSO E CRIAR MEMÓRIA LÓGICA E TABELA DE PÁGINAS////////////////
@@ -69,6 +68,7 @@ $scope.criaPaginas = function(processo){
 		pag.status = false;
 		pag.pagina =i;
 		pag.bit = "I";
+		pag.bitRef = 0;
 		pag.endMF = null;
 		if(processo.nome == "A"){
 
@@ -109,9 +109,8 @@ $scope.criaPaginas = function(processo){
 			}
 		}
 	}
-
-	
 }
+
 //Verifica se a página está carregada
 $scope.paginaStatus= function(pagina){
 	if(pagina.status){
@@ -133,7 +132,7 @@ $scope.carregarPagina = function(processo){
 					pagina =  i;
 					console.log("compara carga - Carga atual: ", carga, "página da carga", pagina)
 					
-				}else if(i == 7){
+				}else if(i == 7 && $scope.escalonador == 'FIFO' ){
 					console.log("Memória F anes da troca:",$scope.memoriaF)
 
 					$(".alertafifo").notify("Menor time stamp: "+$scope.listaFIFO[0].horaCarga+"\n Página "+$scope.listaFIFO[0].nome+" retirada da memória",{arrowSize: 7,position:"top center",autoHideDelay: 7000} );
@@ -159,7 +158,6 @@ $scope.carregarPagina = function(processo){
 						$scope.memoriaF[pagina].processoL.cort = "#bf565c69";
 					}else{
 						$scope.memoriaF[pagina].processoL.cort = "#4b706a66";
-						
 					}
 					$scope.listaFIFO.push($scope.memoriaF[pagina])
 					processo.cort = processo.cor;
@@ -170,7 +168,49 @@ $scope.carregarPagina = function(processo){
 					$scope.memoriaF[pagina].processoL = processo;
 					cont ++;
 					carga = 1000;
+				}
+				else if(i == 7 && $scope.escalonador == 'SEGUNDACHANCE' ){
+					console.log("Memória F anes da troca:",$scope.memoriaF)
+
+					$(".alertafifo").notify("Menor time stamp: "+$scope.listaFIFO[0].horaCarga+"\n Página "+$scope.listaFIFO[0].nome+" retirada da memória",{arrowSize: 7,position:"top center",autoHideDelay: 7000} );
+					$(".alertamf").notify("Substituição FIFO:\n Remove "+ $scope.listaFIFO[0].nome +" -> Carrega: "+processo.nome, {arrowSize: 7,className: 'success',position:"bottom center",autoHideDelay: 10000});
 					
+					//$(".alerta").notify("Remove página: "+ $scope.listaFIFO[$scope.listaFIFO.length -1].nome +"\n Carrega página: "+processo.nome, "info");
+					var pag = $scope.listaFIFO[0].nome;
+					console.log("Troca pagina", pagina, " pag", pag, "Lista FFIFO",$scope.listaFIFO )
+					for (var f = 0; f < $scope.listaFIFO.length; f ++) {
+						//$scope.listaFIFO.shift();
+						if($scope.listaFIFO[f].bitRef == 0){
+							$scope.memoriaF[pagina].nome = processo.nome;
+							$scope.memoriaF[pagina].cor = processo.cor;
+							$scope.memoriaF[pagina].horaCarga = cont;
+							$scope.memoriaF[pagina].processoL.bit = "I";
+							$scope.memoriaF[pagina].processoL.status = false;
+							$scope.memoriaF[pagina].processoL.endMF = null;
+							$scope.memoriaF[pagina].processoL.bitcor = "#000";
+							if(pag.indexOf("A") != -1){
+								$scope.memoriaF[pagina].processoL.cort = "#0780a769";
+							}else if(pag.indexOf("B") != -1){
+								$scope.memoriaF[pagina].processoL.cort = "#78596469";
+							}else if(pag.indexOf("C") != -1){
+								$scope.memoriaF[pagina].processoL.cort = "#bf565c69";
+							}else{
+								$scope.memoriaF[pagina].processoL.cort = "#4b706a66";
+							}
+							$scope.listaFIFO.push($scope.memoriaF[pagina])
+							processo.cort = processo.cor;
+							processo.status = true;
+							processo.bitcor = "#FFFFFF"
+							processo.bit = "V";
+							processo.bitRef = 1;
+							processo.endMF = $scope.memoriaF[pagina].paginaf;
+							$scope.memoriaF[pagina].processoL = processo;
+							cont ++;	
+							carga = 1000;
+						}
+					}
+				}	else if(i == 7 && $scope.escalonador == null ){
+					$(".glyphicon-cog").notify("Escolha um algoritmo de substituição" , "warging"); 
 				}
 				
 			} else if ($scope.memoriaF[i].nome == null) {
@@ -179,15 +219,18 @@ $scope.carregarPagina = function(processo){
 				$scope.memoriaF[i].cor = processo.cor;
 				$scope.memoriaF[i].horaCarga = cont;
 				$scope.memoriaF[i].processoL = processo;
+				$scope.memoriaF[i].bitRef = 1;
 				$scope.listaFIFO.push($scope.memoriaF[i])
 				console.log("Lista FIFO:", $scope.listaFIFO)
 				processo.cort = processo.cor;
 				processo.status = true;
 				processo.bitcor = "#FFFFFF"
 				processo.bit = "V";
+				processo.bitRef = 1;
 				processo.endMF = $scope.memoriaF[i].paginaf;
 				cont ++;
-				$(".glyphicon-cog").notify("Página "+ processo.nome +" carregada na memória física!" , "success");
+				$(".glyphicon-cog").notify("Página "+ processo.nome +" carregada na memória física!" , "success"); 
+				//$(".glyphicon-cog").notify($scope.escalonador , "success"); TESTE
 				$scope.mfisicaocupada++;
 				if($scope.mfisicaocupada ==8){
 					$(".alerta").notify("Memória física cheia!",{position:"top center",type:"warn"});
@@ -564,6 +607,13 @@ function verificaPagina(nome){			// Verifica se a página já está na memória 
 		}
 	}
 	return false;
+}
+$scope.simularCiclo = function simularCiclo(){
+	for(var i=0; i < $scope.memoriaF.length; i++){
+		if($scope.memoriaF[i].nome != null){
+			$scope.memoriaF[i].bitRef = Math.floor(Math.random() * 2);
+		}
+	}
 }
 
 function gera_cor(){		// gera cor aleatoria

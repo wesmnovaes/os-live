@@ -7,7 +7,7 @@
 	<meta name="viewport"
 		content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="app.css">
 	<script data-require="angular.js@1.6.1" data-semver="1.6.1"
@@ -24,7 +24,7 @@
 	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"  -->
-		<!-- integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
+	<!-- integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
 	<script type="text/javascript" src="app.js"></script>
 	<script type="text/javascript" src="notify.js"></script>
 	<link rel="icon" type="image/jpg" href="computer.png" /> <!-- icone do titulo -->
@@ -306,14 +306,18 @@
 				<thead >
 					<td>Página</td>
 					<td>Conteúdo</td>
+					<td style="background-color: white; color: #000000; border-bottom-style: dotted; border-right-style: hidden";>Bit de ref</td>
 				</thead>
 				<tr align="center" height="33" ng-repeat="m in memoriaF" style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{m.cor}}; color: #FFFFFF; font-size: 12px" >
 					<td >{{m.paginaf}}</td>
 					<td >{{m.nome}}</td>
+					<td style="background-color: white; color: #000000; border-bottom-style: dotted; border-right-style: hidden">{{m.bitRef}}</td>
 				</tr>
 			</table>
 			<div><p class="alertamf"></p></div>
-		</div>
+		 <button type="button" class="btn btn-info" ng-click="simularCiclo()"> Simular ciclo</button>
+		</div> 
+
 
 		<!--DISCO COM PÁGINAS DOS PROCESSOS-->
 		<div class="table-responsive lar" style="background-color: rgb(230, 228, 228);" >
