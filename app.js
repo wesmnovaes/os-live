@@ -181,6 +181,7 @@ $scope.carregarPagina = function(processo){
 					for (var f = 0; f < $scope.listaFIFO.length; f ++) {
 						//$scope.listaFIFO.shift();
 						if($scope.listaFIFO[f].bitRef == 0){
+							$scope.listaFIFO.pop();
 							$scope.memoriaF[pagina].nome = processo.nome;
 							$scope.memoriaF[pagina].cor = processo.cor;
 							$scope.memoriaF[pagina].horaCarga = cont;
