@@ -172,16 +172,12 @@ $scope.carregarPagina = function(processo){
 				else if(i == 7 && $scope.escalonador == 'SEGUNDACHANCE' ){
 					console.log("Memória F anes da troca:",$scope.memoriaF)
 
-					$(".alertafifo").notify("Menor time stamp: "+$scope.listaFIFO[0].horaCarga+"\n Página "+$scope.listaFIFO[0].nome+" retirada da memória",{arrowSize: 7,position:"top center",autoHideDelay: 7000} );
+					$(".alertafifo").notify("Menor time stamp com bit 0: "+$scope.listaFIFO[0].horaCarga+"\n Página "+$scope.listaFIFO[0].nome+" retirada da memória",{arrowSize: 7,position:"top center",autoHideDelay: 7000} );
 					$(".alertamf").notify("Substituição FIFO:\n Remove "+ $scope.listaFIFO[0].nome +" -> Carrega: "+processo.nome, {arrowSize: 7,className: 'success',position:"bottom center",autoHideDelay: 10000});
 					
-					//$(".alerta").notify("Remove página: "+ $scope.listaFIFO[$scope.listaFIFO.length -1].nome +"\n Carrega página: "+processo.nome, "info");
-					var pag = $scope.listaFIFO[0].nome;
-					console.log("Troca pagina", pagina, " pag", pag, "Lista FFIFO",$scope.listaFIFO )
 					for (var f = 0; f < $scope.listaFIFO.length; f ++) {
-						//$scope.listaFIFO.shift();
 						if($scope.listaFIFO[f].bitRef == 0){
-							$scope.listaFIFO.pop();
+							$scope.listaFIFO.splice(f,1,processo);
 							$scope.memoriaF[pagina].nome = processo.nome;
 							$scope.memoriaF[pagina].cor = processo.cor;
 							$scope.memoriaF[pagina].horaCarga = cont;
@@ -210,7 +206,7 @@ $scope.carregarPagina = function(processo){
 							carga = 1000;
 						}
 					}
-				}	else if(i == 7 && $scope.escalonador == null ){
+				} else if(i == 7 && $scope.escalonador == null ){
 					$(".glyphicon-cog").notify("Escolha um algoritmo de substituição" , "warging"); 
 				}
 				
@@ -226,11 +222,11 @@ $scope.carregarPagina = function(processo){
 				processo.cort = processo.cor;
 				processo.status = true;
 				processo.bitcor = "#FFFFFF"
-				processo.bit = "V";
+				//processo.bit = "V";
 				processo.bitRef = 1;
 				processo.endMF = $scope.memoriaF[i].paginaf;
 				cont ++;
-				$(".glyphicon-cog").notify("Página "+ processo.nome +" carregada na memória física!" , "success"); 
+				$(".glyphicon-cog").notify("Página "+ processo.nome +" carregada na memória física!" + carga +  "success"); 
 				//$(".glyphicon-cog").notify($scope.escalonador , "success"); TESTE
 				$scope.mfisicaocupada++;
 				if($scope.mfisicaocupada ==8){
