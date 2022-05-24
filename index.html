@@ -306,16 +306,15 @@
 				<thead >
 					<td>Página</td>
 					<td>Conteúdo</td>
-					<td style="background-color: white; color: #000000; border-bottom-style: dotted; border-right-style: hidden";>Bit de ref</td>
+					<!-- bit de ref td style="background-color: white; color: #000000; border-bottom-style: dotted; border-right-style: hidden";>Bit de ref</td -->
 				</thead>
 				<tr align="center" height="33" ng-repeat="m in memoriaF" style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{m.cor}}; color: #FFFFFF; font-size: 12px" >
 					<td >{{m.paginaf}}</td>
 					<td >{{m.nome}}</td>
-					<td style="background-color: white; color: #000000; border-bottom-style: dotted; border-right-style: hidden">{{m.bitRef}}</td>
+					<!-- coluna com bit de ref td style="background-color: white; color: #000000; border-bottom-style: dotted; border-right-style: hidden">{{m.bitRef}}</td -->
 				</tr>
 			</table>
 			<div><p class="alertamf"></p></div>
-		 <button type="button" class="btn btn-info" ng-click="simularCiclo()"> Simular ciclo</button>
 		</div> 
 
 
@@ -375,6 +374,13 @@
 						<td width="40" ng-repeat="p in listaFIFO" 
 							style="animation-delay: 500ms; background-color:{{p.cor}}; color: #FFFFFF; font-size: 12px">
 							{{p.nome}}</td>
+					</tr>
+					<tr ng-show="escalonador == 'SEGUNDACHANCE'"> 
+						<td style="font-size: 12px ;background: rgb(63, 61, 61);color: #FFFFFF" >bit Ref</td>
+						<td width="40" ng-repeat="p in listaFIFO" 
+							style="animation-delay: 500ms; background-color:{{p.cor}}; color: #FFFFFF; font-size: 12px">
+							{{p.bitRef}}</td>
+						<td> <button type="button" class="btn btn-info" ng-click="simularCiclo()"> Simular ciclo</button> </td>
 					</tr>
 				</table>
 				<div><p class="alertafifo"></p></div>
