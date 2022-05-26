@@ -247,7 +247,6 @@
 					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{c.cor}}; color: #FFFFFF; font-size: 10px">
 						<button class="btn btn-light btn-xs"  ng-click="paginaStatus(processoC[c.pagina])"><i
 							ng-class="{'glyphicon glyphicon-ok': c.status, 'glyphicon glyphicon-remove': !c.status}"></i> {{c.nome}}</button>
-						
 					</td>
 				</tr>
 			</table>
@@ -277,7 +276,6 @@
 					<td style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{d.cor}}; color: #FFFFFF; font-size: 10px">
 						<button class="btn btn-light btn-xs"  ng-click="paginaStatus(processoD[d.pagina])"><i
 							ng-class="{'glyphicon glyphicon-ok': d.status, 'glyphicon glyphicon-remove': !d.status}"></i> {{d.nome}}</button>
-						
 				</tr>
 			</table>
 			<!-- TABELA DE PAGINAS DO PROCESSO D-->
@@ -296,9 +294,6 @@
 			</table>
 		</div>
 		</div>
-
-
-		
 		<!-- TABELA DA MEMÓRIA FISICA -->
 		<div align="center" class="table-responsive lar">
 			<h5 class="alerta">Memória Física</h5>
@@ -316,8 +311,6 @@
 			</table>
 			<div><p class="alertamf"></p></div>
 		</div> 
-
-
 		<!--DISCO COM PÁGINAS DOS PROCESSOS-->
 		<div class="table-responsive lar" style="background-color: rgb(230, 228, 228);" >
 			<h5>Disco</h5>
@@ -375,12 +368,13 @@
 							style="animation-delay: 500ms; background-color:{{p.cor}}; color: #FFFFFF; font-size: 12px">
 							{{p.nome}}</td>
 					</tr>
-					<tr ng-show="escalonador == 'SEGUNDACHANCE'"> 
+					<tr class="align-self-end" ng-show="escalonador == 'SEGUNDACHANCE'" style="text-align: center" height="33" > 
 						<td style="font-size: 12px ;background: rgb(63, 61, 61);color: #FFFFFF" >bit Ref</td>
-						<td width="40" ng-repeat="p in listaFIFO" 
-							style="animation-delay: 500ms; background-color:{{p.cor}}; color: #FFFFFF; font-size: 12px">
-							{{p.bitRef}}</td>
-						<td> <button type="button" class="btn btn-info" ng-click="simularCiclo()"> Simular ciclo</button> </td>
+						<td  ng-repeat="rf in listaFIFO" 
+							style="animation-delay: 500ms; background-color:{{rf.cor}}; color: #FFFFFF; font-size: 12px">
+							{{rf.bitRef}} 
+						</td>
+						<td> <button type="button" class="btn btn-info btn-sm" ng-click="simularCiclo()"> Simular ciclo</button> </td>
 					</tr>
 				</table>
 				<div><p class="alertafifo"></p></div>

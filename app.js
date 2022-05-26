@@ -68,7 +68,6 @@ $scope.criaPaginas = function(processo){
 		pag.status = false;
 		pag.pagina =i;
 		pag.bit = "I";
-		pag.bitRef = 0;
 		pag.endMF = null;
 		if(processo.nome == "A"){
 
