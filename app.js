@@ -157,6 +157,7 @@ $scope.carregarPagina = function(processo){
 						$scope.memoriaF[pagina].processoL.cort = "#bf565c69";
 					}else{
 						$scope.memoriaF[pagina].processoL.cort = "#4b706a66";
+						
 					}
 					$scope.listaFIFO.push($scope.memoriaF[pagina])
 					processo.cort = processo.cor;
@@ -167,66 +168,55 @@ $scope.carregarPagina = function(processo){
 					$scope.memoriaF[pagina].processoL = processo;
 					cont ++;
 					carga = 1000;
-				}
-				else if(i == 7 && $scope.escalonador == 'SEGUNDACHANCE' ){
-					console.log("Memória F anes da troca:",$scope.memoriaF)
-
-					$(".alertafifo").notify("Menor time stamp com bit 0: "+$scope.listaFIFO[0].horaCarga+"\n Página "+$scope.listaFIFO[0].nome+" retirada da memória",{arrowSize: 7,position:"top center",autoHideDelay: 7000} );
-					$(".alertamf").notify("Substituição FIFO:\n Remove "+ $scope.listaFIFO[0].nome +" -> Carrega: "+processo.nome, {arrowSize: 7,className: 'success',position:"bottom center",autoHideDelay: 10000});
 					
-					for (var f = 0; f < $scope.listaFIFO.length; f ++) {
-						if($scope.listaFIFO[f].bitRef == 0){
-							$scope.listaFIFO.splice(f,1,processo);
-							$scope.memoriaF[pagina].nome = processo.nome;
-							$scope.memoriaF[pagina].cor = processo.cor;
-							$scope.memoriaF[pagina].horaCarga = cont;
-							$scope.memoriaF[pagina].processoL.bit = "I";
-							$scope.memoriaF[pagina].processoL.status = false;
-							$scope.memoriaF[pagina].processoL.endMF = null;
-							$scope.memoriaF[pagina].processoL.bitcor = "#000";
-							if(pag.indexOf("A") != -1){
-								$scope.memoriaF[pagina].processoL.cort = "#0780a769";
-							}else if(pag.indexOf("B") != -1){
-								$scope.memoriaF[pagina].processoL.cort = "#78596469";
-							}else if(pag.indexOf("C") != -1){
-								$scope.memoriaF[pagina].processoL.cort = "#bf565c69";
-							}else{
-								$scope.memoriaF[pagina].processoL.cort = "#4b706a66";
+				} else if(i == 7 && $scope.escalonador == 'SEGUNDACHANCE'){
+
+					
+						for (var d = 0; d < $scope.listaFIFO.length; d ++) {
+							if($scope.listaFIFO[d].bitRef == 0 )
+							{
+							console.log("bit ref ==0 Lista fifo antes", $scope.listaFIFO);
+							$scope.removePagina($scope.listaFIFO[d]);
+							console.log("bit ref ==0 Remove pg mf", $scope.memoriaF);
+							$scope.listaFIFO.splice(d,1);
+							console.log("bit ref ==0 Lista slice lista fifo", $scope.listaFIFO);
+							$scope.listaFIFO.push(processo)
+							console.log("bit ref ==0 Lista push processo", $scope.listaFIFO);
+							break;
 							}
-							$scope.listaFIFO.push($scope.memoriaF[pagina])
-							processo.cort = processo.cor;
-							processo.status = true;
-							processo.bitcor = "#FFFFFF"
-							processo.bit = "V";
-							processo.bitRef = 1;
-							processo.endMF = $scope.memoriaF[pagina].paginaf;
-							$scope.memoriaF[pagina].processoL = processo;
-							cont ++;	
-							carga = 1000;
+							else if($scope.listaFIFO[d].bitRef == 1)
+							{
+								var pararel;
+								pararel = $scope.listaFIFO[d];
+								console.log("cheguei no bit ref == 1 ");
+								indiceMF = $scope.listaFIFO[d].endMF;
+								console.log("bit ref == 1", - indiceMF);
+								console.log("Para:", pararel);
+								//$scope.memoriaF[indiceMF].horaCarga = cont;
+								//$scope.memoriaF[indiceMF].bitRef = 0;
+								//$scope.listaFIFO.splice(d,1)
+								//$scope.listaFIFO.push($scope.memoriaF[indiceMF])
+								cont++;
+							}						
 						}
-					}
-				} else if(i == 7 && $scope.escalonador == null ){
-					$(".glyphicon-cog").notify("Escolha um algoritmo de substituição" , "warging"); 
+					
 				}
-				
 			} else if ($scope.memoriaF[i].nome == null) {
 				
 				$scope.memoriaF[i].nome = processo.nome;
 				$scope.memoriaF[i].cor = processo.cor;
-				$scope.memoriaF[i].horaCarga = cont;
-				$scope.memoriaF[i].processoL = processo;
+				
 				$scope.memoriaF[i].bitRef = 1;
+				$scope.memoriaF[i].processoL = processo;
 				$scope.listaFIFO.push($scope.memoriaF[i])
 				console.log("Lista FIFO:", $scope.listaFIFO)
 				processo.cort = processo.cor;
 				processo.status = true;
 				processo.bitcor = "#FFFFFF"
-				//processo.bit = "V";
-				processo.bitRef = 1;
+				processo.bit = "V";
 				processo.endMF = $scope.memoriaF[i].paginaf;
 				cont ++;
-				$(".glyphicon-cog").notify("Página "+ processo.nome +" carregada na memória física!" + carga +  "success"); 
-				//$(".glyphicon-cog").notify($scope.escalonador , "success"); TESTE
+				$(".glyphicon-cog").notify("Página "+ processo.nome +" carregada na memória física!" , "success");
 				$scope.mfisicaocupada++;
 				if($scope.mfisicaocupada ==8){
 					$(".alerta").notify("Memória física cheia!",{position:"top center",type:"warn"});
