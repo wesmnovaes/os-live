@@ -69,8 +69,9 @@ $scope.criaPaginas = function(processo){
 		pag.pagina =i;
 		pag.bit = "I";
 		pag.endMF = null;
-		if(processo.nome == "A"){
 
+		if(processo.nome == "A")
+		{
 			corProcesso="#0780A7";
 			pag.cor = "#0780A7";
 			pag.cort = "#0780a769";
@@ -169,44 +170,51 @@ $scope.carregarPagina = function(processo){
 					cont ++;
 					carga = 1000;
 					
-				} else if(i == 7 && $scope.escalonador == 'SEGUNDACHANCE'){
-
-					
-						for (var d = 0; d < $scope.listaFIFO.length; d ++) {
+				} else if(i == 7 && $scope.escalonador == 'SEGUNDACHANCE')
+					{
+						for (var d = 0; d <= 7; d++) 
+						{
 							if($scope.listaFIFO[d].bitRef == 0 )
 							{
-							console.log("bit ref ==0 Lista fifo antes", $scope.listaFIFO);
-							$scope.removePagina($scope.listaFIFO[d]);
-							console.log("bit ref ==0 Remove pg mf", $scope.memoriaF);
-							$scope.listaFIFO.splice(d,1);
-							console.log("bit ref ==0 Lista slice lista fifo", $scope.listaFIFO);
-							$scope.listaFIFO.push(processo)
-							console.log("bit ref ==0 Lista push processo", $scope.listaFIFO);
-							break;
+								var indiceTMF = $scope.listaFIFO[d].paginaf;
+								
+								$scope.removePagina($scope.listaFIFO[d].processoL);
+								$scope.listaFIFO.splice(d,1);
+								$scope.memoriaF[indiceTMF].nome = processo.nome;
+								$scope.memoriaF[indiceTMF].cor = processo.cor;
+								$scope.memoriaF[indiceTMF].horaCarga = cont;
+								$scope.memoriaF[indiceTMF].bitRef = 1;
+								
+								$scope.listaFIFO.push($scope.memoriaF[indiceTMF])
+								
+								processo.cort = processo.cor;
+								processo.status = true;
+								processo.bitcor = "#FFFFFF"
+								processo.bit = "V";
+								processo.endMF = $scope.memoriaF[indiceTMF].paginaf;
+								$scope.memoriaF[indiceTMF].processoL = processo;
+								cont ++;
+								break;								
 							}
 							else if($scope.listaFIFO[d].bitRef == 1)
 							{
-								var pararel;
-								pararel = $scope.listaFIFO[d];
-								console.log("cheguei no bit ref == 1 ");
-								indiceMF = $scope.listaFIFO[d].endMF;
-								console.log("bit ref == 1", - indiceMF);
-								console.log("Para:", pararel);
-								//$scope.memoriaF[indiceMF].horaCarga = cont;
-								//$scope.memoriaF[indiceMF].bitRef = 0;
-								//$scope.listaFIFO.splice(d,1)
-								//$scope.listaFIFO.push($scope.memoriaF[indiceMF])
+								var indiceMF = $scope.listaFIFO[d].paginaf;
+								$scope.memoriaF[indiceMF].horaCarga = cont;
+								$scope.memoriaF[indiceMF].bitRef = 0;
+								$scope.listaFIFO.splice(d,1)
+								$scope.listaFIFO.push($scope.memoriaF[indiceMF])
 								cont++;
-							}						
-						}
+								
+							}
+						} 	console.log("BF = (1) Lista fifo depois: ", $scope.listaFIFO[d]);						
 					
 				}
 			} else if ($scope.memoriaF[i].nome == null) {
 				
 				$scope.memoriaF[i].nome = processo.nome;
 				$scope.memoriaF[i].cor = processo.cor;
-				
-				$scope.memoriaF[i].bitRef = 1;
+				$scope.memoriaF[i].horaCarga = cont;
+				$scope.memoriaF[i].bitRef = Math.floor(Math.random() * 2);
 				$scope.memoriaF[i].processoL = processo;
 				$scope.listaFIFO.push($scope.memoriaF[i])
 				console.log("Lista FIFO:", $scope.listaFIFO)
