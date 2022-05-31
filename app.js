@@ -200,13 +200,12 @@ $scope.carregarPagina = function(processo){
 							} 
 							else if($scope.listaFIFO[0].bitRef == 1)
 							{
-								$(".alertafifo").notify("Página "+ $scope.memoriaF[indiceTMF].processoL.nome +" Recebeu a Segunda Chance com novo TIMESTAMP: "+$scope.memoriaF[indiceTMF].horaCarga,{arrowSize: 0,position:"top center",autoHideDelay: 7000} , "success");
 								$scope.memoriaF[indiceTMF].horaCarga = cont;
+								$(".alertafifo").notify("Página "+ $scope.memoriaF[indiceTMF].processoL.nome +" Recebeu a Segunda Chance com novo TIMESTAMP: "+$scope.memoriaF[indiceTMF].horaCarga,{arrowSize: 0,position:"top center",autoHideDelay: 7000} , "success");
 								$scope.memoriaF[indiceTMF].bitRef = 0;
 								$scope.listaFIFO.splice(0,1);
 								$scope.listaFIFO.push($scope.memoriaF[indiceTMF])
 								cont++;
-//								$(".alertamf").notify("Substituição Segunda chance :\n A página  "+ $scope.listaFIFO[0].nome +" recebe segunda chance com novo TIMESTAMP: "+$scope.memoriaF[indiceTMF].horaCarga, {arrowSize: 7,className: 'success',position:"bottom center",autoHideDelay: 10000});
 							}
 						} 							
 					

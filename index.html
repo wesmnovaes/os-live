@@ -170,7 +170,7 @@
 			<h5>Memória Lógica</h5>
 			<div class="linha">
 			<table  ng-show="processoA.length >0" align="center" class="table" id="tabelaExec">
-				<caption>Mem. Lógica</caption>
+				<caption>Mem. Lógica <a href="" data-toggle="modal" data-target="#tb_memoria_logica"> <img src="info_ico.png" width="15px" height="15px" alt=""> </a></caption>
 				<thead >
 					<td height="30.5">Pág</td>
 					<td height="30.5">Conteúdo</td>
@@ -374,7 +374,8 @@
 							style="animation-delay: 500ms; background-color:{{rf.cor}}; color: #FFFFFF; font-size: 12px">
 							{{rf.bitRef}} 
 						</td>
-						<td> <button type="button" class="btn btn-info btn-sm" ng-click="simularCiclo()"> Simular ciclo</button> </td>
+						<td style="border-style: none;"> <button type="button" class="btn btn-info btn-sm"  ng-click="simularCiclo()"> Simular ciclo</button> </td>
+						<td style="border-style: none;"> <a href="" data-toggle="modal" data-target="#segunda_chance"> <img src="info_ico.png" width="15px" height="15px" alt=""> </a></td>
 					</tr>
 				</table>
 				<div><p class="alertafifo"></p></div>
@@ -385,7 +386,47 @@
 			$("alertafifo").remove();
 		});
 	</script>
-	<!-- TABELA DE PAGINAS DO PROCESSO A-->
+
+	<!-- Início dos modal's -->
+	<!-- INFO Sobre o Segunda Chance-->
+		<div class="modal fade" id="segunda_chance" tabindex="-1" role="dialog" aria-labelledby="label_sc_modal" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="label_sc_modal">Algoritmo de Segunda Chance</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				</div>
+				<div class="modal-body">
+				Aqui uma breve explicação sobre o algoritmo.
+				</div>
+				<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				</div>
+			</div>
+			</div>
+		</div>
+  <!-- INFO Sobre tabela de memória lógica-->
+		<div class="modal fade" id="tb_memoria_logica" tabindex="-1" role="dialog" aria-labelledby="label_tb_memoria_logica" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="label_tb_memoria_logica">Memória lógica</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				</div>
+				<div class="modal-body">
+				Aqui uma breve explicação sobre a tabela lógica de um processo. 
+				</div>
+				<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				</div>
+			</div>
+			</div>
+		</div>
+	<!-- Fim dos modal's -->
 	<footer id="rodape">
 	</footer>	
 </body>
