@@ -173,7 +173,7 @@
 				<caption>Mem. Lógica <a href="" data-toggle="modal" data-target="#tb_memoria_logica"> <img src="info_ico.png" width="15px" height="15px" alt=""> </a></caption>
 				<thead >
 					<td height="30.5">Pág</td>
-					<td height="30.5">Conteúdo</td>
+					<td height="30.5" width="80px">Conteúdo</td>
 				</thead>
 				<tbody  class="tbody">
 				<tr height="33" align="center"ng-repeat="a in processoA" style="font-size: 10px">
@@ -301,6 +301,7 @@
 				<thead >
 					<td>Página</td>
 					<td>Conteúdo</td>
+					<td style="text-align:left; border-style: none; background-color: white;"> <a href="" data-toggle="modal" data-target="#tb_memoria_fisica"> <img src="info_ico.png" width="15px" height="15px" alt=""> </a></td>
 					<!-- bit de ref td style="background-color: white; color: #000000; border-bottom-style: dotted; border-right-style: hidden";>Bit de ref</td -->
 				</thead>
 				<tr align="center" height="33" ng-repeat="m in memoriaF" style="-webkit-transition-delay:{{1 * 500}}ms; background-color:{{m.cor}}; color: #FFFFFF; font-size: 12px" >
@@ -313,7 +314,7 @@
 		</div> 
 		<!--DISCO COM PÁGINAS DOS PROCESSOS-->
 		<div class="table-responsive lar" style="background-color: rgb(230, 228, 228);" >
-			<h5>Disco</h5>
+			<h5>Disco <a href="" data-toggle="modal" data-target="#tb_disco"> <img src="info_ico.png" width="15px" height="15px" alt=""> </a> </h5>
 			<div align="center" class="linha">
 				<table ng-show="processoA.length >0" align="center" class="table" id="tabelaExec">
 					<thead >
@@ -353,9 +354,6 @@
 		</div>
 	</div>
 		<div class="fifo">
-			<div >
-				<h5 style="text-align: center; font-weight: bold;">Ordem de Carga da Página na Memória Física</h5>
-			</div>
 			<div align="center" class="linha">
 				<table class="table" id="tabelaExec" border="2">
 					<tr height="33" style="text-align: center" >
@@ -386,11 +384,11 @@
 			$("alertafifo").remove();
 		});
 	</script>
-
+	
 	<!-- Início dos modal's -->
 	<!-- INFO Sobre o Segunda Chance-->
 		<div class="modal fade" id="segunda_chance" tabindex="-1" role="dialog" aria-labelledby="label_sc_modal" aria-hidden="true">
-			<div class="modal-dialog" role="document">
+			<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 				<h5 class="modal-title" id="label_sc_modal">Algoritmo de Segunda Chance</h5>
@@ -399,7 +397,10 @@
 				</button>
 				</div>
 				<div class="modal-body">
-				Aqui uma breve explicação sobre o algoritmo.
+				<p style="line-height: 1.5; text-align: justify;" > 
+					O algoritmo de Segunda Chance é uma melhoria do algoritmo FIFO, que verifica o bit de referência antes de realizar a substituição da página. Percorrendo todas as páginas de forma circular em uma fila ordenada por tempo de carga na memória, o algoritmo permite que páginas que foram acessadas recentemente recebam uma segunda chance ao ser avaliada para ser a página vítima. <br>
+					<br><img src="assets/second_chance_chart.jpg" width="98%" >
+				</p>
 				</div>
 				<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -409,7 +410,7 @@
 		</div>
   <!-- INFO Sobre tabela de memória lógica-->
 		<div class="modal fade" id="tb_memoria_logica" tabindex="-1" role="dialog" aria-labelledby="label_tb_memoria_logica" aria-hidden="true">
-			<div class="modal-dialog" role="document">
+			<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 				<h5 class="modal-title" id="label_tb_memoria_logica">Memória lógica</h5>
@@ -418,7 +419,12 @@
 				</button>
 				</div>
 				<div class="modal-body">
-				Aqui uma breve explicação sobre a tabela lógica de um processo. 
+					<p style="line-height: 1.5; text-align: justify;" > 
+						Quando um programa é executado, um processo é criado e seu espaço de endereçamento é alocado na memória lógica. 
+						<br>
+						<br>
+						Esse espaço é dividido em partes denominadas páginas, no momento da execução do programa, o conteúdo referente as página são carregados para os quadros na memória física. 				
+					</p>
 				</div>
 				<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -426,6 +432,68 @@
 			</div>
 			</div>
 		</div>
+		<!-- INFO Sobre Memória Física-->
+		<div class="modal fade" id="tb_memoria_fisica" tabindex="-1" role="dialog" aria-labelledby="label_tb_memoria_fisica" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="label_tb_memoria_fisica">Memória Física</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				</div>
+				<div class="modal-body">
+				<p style="line-height: 1.8; text-align: justify;" > 
+					A memória RAM (Random Access Memory) é um componente físico aclopado a placa mãe, ela é o único
+					espaçamento de memória que recebe acesso através de endereço direto pelo processador.
+					<br>
+					<br>
+					Considerando que espaço físico da memória é limitado, o gerenciamento de memória é necessário para 
+					que a maior quantidade de informação possível possa ser carregada e disponibilizada na memória.
+					<br>
+					<br>
+					Para simular esse gerenciamento, a memória RAM é representada por uma tabela contendo dois quadros de quatro
+					páginas cada, resultando em oito espaços para carregamento de páginas dos processos criados.
+					<br>
+					<br>
+					<img src="assets/memory_ram.png" width="75%" style="padding-left: 25%;" >				
+				</p>
+				</div>
+				<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				</div>
+			</div>
+			</div>
+		</div>	
+		<!-- INFO Sobre Disco-->
+		<div class="modal fade" id="tb_disco" tabindex="-1" role="dialog" aria-labelledby="label_tb_disco" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="label_tb_disco">Disco</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				</div>
+				<div class="modal-body">
+				<p style="line-height: 1.8; text-align: justify;" > 
+					Mecanismos modernos de paginação como a paginação por demanda, permite que quando um processo for criado, apenas 
+					as páginas que serão utilizadas no momento da execução sejam carregadas para a memória principal. 
+					<br>
+					As demais páginas, assim como todas as páginas do processo (inclusive as páginas na RAM), ficam armazenadas no disco. 
+					Caso uma página que não esteja na RAM seja referenciada, uma cópia dela é feita para a mamória princial 
+					e a tabela de páginas é atualizada para que seu acesso seja disponibilizado.
+					<br>
+					<br>
+					<img src="assets/HD.png" width="60%" style="padding-left: 35%;" >				
+				</p>
+				</div>
+				<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				</div>
+			</div>
+			</div>
+		</div>	
 	<!-- Fim dos modal's -->
 	<footer id="rodape">
 	</footer>	
