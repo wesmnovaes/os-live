@@ -154,7 +154,7 @@
 	</div> 
 	<!-- fim da barra de menu vertical class="nav-side-menu"-->
 	<div class="col-sm-9 col-sm-offset-1" style="font-size: 10px; height: 50px" >
-		<h3 style="text-align: center"><b>Paginação por Demanda com Substituição de Páginas</b></h3>
+		<h3 style="text-align: center"><b>Paginação por Demanda com Substituição de Páginas <a href="" data-toggle="modal" data-target="#tb_memoria_logica"> <img src="info_ico.png" width="15px" height="15px" alt=""> </a></b></h3>
 	</div>
 	<!-- Lista de páginas FIFO -->
 		<div class="col-sm-9 col-sm-offset-1">
@@ -170,7 +170,7 @@
 			<h5>Memória Lógica</h5>
 			<div class="linha">
 			<table  ng-show="processoA.length >0" align="center" class="table" id="tabelaExec">
-				<caption>Mem. Lógica <a href="" data-toggle="modal" data-target="#tb_memoria_logica"> <img src="info_ico.png" width="15px" height="15px" alt=""> </a></caption>
+				<caption>Mem. Lógica </caption>
 				<thead >
 					<td height="30.5">Pág</td>
 					<td height="30.5" width="80px">Conteúdo</td>
@@ -372,9 +372,15 @@
 							style="animation-delay: 500ms; background-color:{{rf.cor}}; color: #FFFFFF; font-size: 12px">
 							{{rf.bitRef}} 
 						</td>
-						<td style="border-style: none;"> <button type="button" class="btn btn-info btn-sm"  ng-click="simularCiclo()"> Simular ciclo</button> </td>
+						<!-- td style="border-style: none;"> <button type="button" class="btn btn-info btn-sm"  ng-click="simularCiclo()"> Simular ciclo</button> </td -->
 						<td style="border-style: none;"> <a href="" data-toggle="modal" data-target="#segunda_chance"> <img src="info_ico.png" width="15px" height="15px" alt=""> </a></td>
 					</tr>
+					<tr ng-show="escalonador == 'SEGUNDACHANCE'" style="text-align: center" height="33">
+						<td style="font-size: 12px ;background: rgb(63, 61, 61);color: #FFFFFF" >Acessar PG:</td>
+						<td ng-repeat="rf in listaFIFO" 
+						style="animation-delay: 500ms; background-color:{{rf.cor}}; color: #FFFFFF; font-size: 12px">  <a href="" ng-click="statusBitRef(rf)"> 
+							<img src="assets/arrow_circle_green_up_icon.png" width="25px" height="25px" alt=""> </a> </td>
+					</tr> 
 				</table>
 				<div><p class="alertafifo"></p></div>
 			</div>

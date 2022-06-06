@@ -171,7 +171,8 @@ $scope.carregarPagina = function(processo){
 					carga = 1000;
 					
 				} else if(i == 7 && $scope.escalonador == 'SEGUNDACHANCE')
-					{				
+					{			
+						var log = 0;	
 						var indiceSC = false;
 						while(!indiceSC)
 						{
@@ -201,11 +202,12 @@ $scope.carregarPagina = function(processo){
 							else if($scope.listaFIFO[0].bitRef == 1)
 							{
 								$scope.memoriaF[indiceTMF].horaCarga = cont;
-								$(".alertafifo").notify("Página "+ $scope.memoriaF[indiceTMF].processoL.nome +" Recebeu a Segunda Chance com novo TIMESTAMP: "+$scope.memoriaF[indiceTMF].horaCarga,{arrowSize: 0,position:"top center",autoHideDelay: 7000} , "success");
-								$scope.memoriaF[indiceTMF].bitRef = 0;
+								$(".alertafifo").notify("Página "+ $scope.memoriaF[indiceTMF].processoL.nome +" Recebeu a Segunda Chance com novo TIMESTAMP: "+$scope.memoriaF[indiceTMF].horaCarga,{arrowSize: 7,position:"bottom left",autoHideDelay: 7000},'warning');
+									$scope.memoriaF[indiceTMF].bitRef = 0;
 								$scope.listaFIFO.splice(0,1);
 								$scope.listaFIFO.push($scope.memoriaF[indiceTMF])
 								cont++;
+								log++;
 							}
 						} 							
 					
@@ -215,7 +217,7 @@ $scope.carregarPagina = function(processo){
 				$scope.memoriaF[i].nome = processo.nome;
 				$scope.memoriaF[i].cor = processo.cor;
 				$scope.memoriaF[i].horaCarga = cont;
-				$scope.memoriaF[i].bitRef = 1 //Math.floor(Math.random() * 2);
+				$scope.memoriaF[i].bitRef = 0 //Math.floor(Math.random() * 2); // escolhe aleatoriamente entre 0 e 1
 				$scope.memoriaF[i].processoL = processo;
 				$scope.listaFIFO.push($scope.memoriaF[i])
 				console.log("Lista FIFO:", $scope.listaFIFO)
@@ -609,6 +611,22 @@ $scope.simularCiclo = function simularCiclo(){
 			$scope.memoriaF[i].bitRef = Math.floor(Math.random() * 2);
 		}
 	}
+}
+
+$scope.statusBitRef = function statusBitRef(pagina){
+
+	var id = pagina.paginaf;
+	var idF = $scope.listaFIFO.indexOf(pagina)
+	if($scope.memoriaF[id].bitRef == 1){
+		$scope.memoriaF[id].bitRef = 0;
+		$scope.listaFIFO[idF].bitRef = 0;
+		console.log("Bit de ref da Pg.: ", pagina.nome," recebe o valor: 0");
+	}else {
+		$scope.memoriaF[id].bitRef = 1;
+		$scope.listaFIFO[idF].bitRef = 1;
+		console.log("Bit de ref da Pg.: ", pagina.nome," recebe o valor: 1");
+	}
+
 }
 
 function gera_cor(){		// gera cor aleatoria
