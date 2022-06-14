@@ -114,7 +114,7 @@ $scope.criaPaginas = function(processo){
 //Verifica se a página está carregada
 $scope.paginaStatus= function(pagina){
 	if(pagina.status){
-		$scope.removePagina(pagina)
+		$scope.removePagina(pagina,true)
 	}else{
 		$scope.carregarPagina(pagina)
 	}
@@ -169,10 +169,9 @@ $scope.carregarPagina = function(processo){
 					$scope.memoriaF[pagina].processoL = processo;
 					cont ++;
 					carga = 1000;
-					
+
 				} else if(i == 7 && $scope.escalonador == 'SEGUNDACHANCE')
-					{			
-						var log = 0;	
+					{
 						var indiceSC = false;
 						while(!indiceSC)
 						{
@@ -180,15 +179,13 @@ $scope.carregarPagina = function(processo){
 						
 							if($scope.listaFIFO[0].bitRef == 0 )
 							{
-								$(".alertamf").notify("Substituição com Segunda Chance:\n Remove "+ $scope.listaFIFO[0].nome +" -> Carrega: "+processo.nome, {arrowSize: 7,className: 'success',position:"bottom left",autoHideDelay: 10000});
-								$scope.removePagina($scope.listaFIFO[0].processoL);
+								$.notify("Substituição com Segunda Chance:\n Remove "+ $scope.listaFIFO[0].nome +" -> Carrega: "+processo.nome, {arrowSize: 7,className: 'success',position:"bottom right",autoHideDelay: 10000});
+								$scope.removePagina($scope.listaFIFO[0].processoL,false);
 								$scope.memoriaF[indiceTMF].nome = processo.nome;
 								$scope.memoriaF[indiceTMF].cor = processo.cor;
 								$scope.memoriaF[indiceTMF].horaCarga = cont;
-								$scope.memoriaF[indiceTMF].bitRef = 0;
-								
+								$scope.memoriaF[indiceTMF].bitRef = 0;							
 								$scope.listaFIFO.push($scope.memoriaF[indiceTMF]);
-								
 								processo.cort = processo.cor;
 								processo.status = true;
 								processo.bitcor = "#FFFFFF";
@@ -202,15 +199,14 @@ $scope.carregarPagina = function(processo){
 							else if($scope.listaFIFO[0].bitRef == 1)
 							{
 								$scope.memoriaF[indiceTMF].horaCarga = cont;
-								$(".alertafifo").notify("Página "+ $scope.memoriaF[indiceTMF].processoL.nome +" Recebeu a Segunda Chance com novo TIMESTAMP: "+$scope.memoriaF[indiceTMF].horaCarga,{arrowSize: 7,position:"bottom left",autoHideDelay: 7000},'warning');
-									$scope.memoriaF[indiceTMF].bitRef = 0;
+								$.notify("Página "+ $scope.memoriaF[indiceTMF].processoL.nome +" Recebeu a Segunda Chance \n com novo TIMESTAMP: "+$scope.memoriaF[indiceTMF].horaCarga,{arrowSize: 7,position:"bottom right",autoHideDelay: 10000},'warning');
+								$scope.memoriaF[indiceTMF].bitRef = 0;
 								$scope.listaFIFO.splice(0,1);
 								$scope.listaFIFO.push($scope.memoriaF[indiceTMF])
 								cont++;
-								log++;
 							}
-						} 							
-					
+						} 	
+						carga = 1000;						
 					}
 			} else if ($scope.memoriaF[i].nome == null) {
 				
@@ -242,10 +238,11 @@ $scope.carregarPagina = function(processo){
 
 //Remove página da memória física
 
-$scope.removePagina = function(pagina){
+$scope.removePagina = function(pagina,msg){
 	var indice = pagina.endMF;
 	pag = pagina.nome;
 	var indiceFIFO = $scope.listaFIFO.indexOf($scope.memoriaF[indice]);
+	var msgVF = msg;
 
 	$scope.memoriaF[indice].processoL.bit = "I";
 	$scope.memoriaF[indice].processoL.status = false;
@@ -267,9 +264,10 @@ $scope.removePagina = function(pagina){
 	$scope.memoriaF[indice].horaCarga = null;
 	$scope.memoriaF[indice].processoL = [];
 	$scope.listaFIFO.splice(indiceFIFO,1);
-	$(".glyphicon-cog").notify("Página "+ pag +" removida da memória física!" , "success");
-
-$scope.mfisicaocupada--;
+	if(msg){
+		$(".glyphicon-cog").notify("Página "+ pag +" removida da memória física!" , "success");
+	}
+	$scope.mfisicaocupada--;
 }
 
 // Exclui processo 
