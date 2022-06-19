@@ -68,10 +68,10 @@ $scope.criaPaginas = function(processo){
 		pag.status = false;
 		pag.pagina =i;
 		pag.bit = "I";
-		pag.bitRef = 0;
 		pag.endMF = null;
-		if(processo.nome == "A"){
 
+		if(processo.nome == "A")
+		{
 			corProcesso="#0780A7";
 			pag.cor = "#0780A7";
 			pag.cort = "#0780a769";
@@ -114,7 +114,7 @@ $scope.criaPaginas = function(processo){
 //Verifica se a página está carregada
 $scope.paginaStatus= function(pagina){
 	if(pagina.status){
-		$scope.removePagina(pagina)
+		$scope.removePagina(pagina,true)
 	}else{
 		$scope.carregarPagina(pagina)
 	}
@@ -158,6 +158,7 @@ $scope.carregarPagina = function(processo){
 						$scope.memoriaF[pagina].processoL.cort = "#bf565c69";
 					}else{
 						$scope.memoriaF[pagina].processoL.cort = "#4b706a66";
+						
 					}
 					$scope.listaFIFO.push($scope.memoriaF[pagina])
 					processo.cort = processo.cor;
@@ -168,66 +169,61 @@ $scope.carregarPagina = function(processo){
 					$scope.memoriaF[pagina].processoL = processo;
 					cont ++;
 					carga = 1000;
-				}
-				else if(i == 7 && $scope.escalonador == 'SEGUNDACHANCE' ){
-					console.log("Memória F anes da troca:",$scope.memoriaF)
 
-					$(".alertafifo").notify("Menor time stamp com bit 0: "+$scope.listaFIFO[0].horaCarga+"\n Página "+$scope.listaFIFO[0].nome+" retirada da memória",{arrowSize: 7,position:"top center",autoHideDelay: 7000} );
-					$(".alertamf").notify("Substituição FIFO:\n Remove "+ $scope.listaFIFO[0].nome +" -> Carrega: "+processo.nome, {arrowSize: 7,className: 'success',position:"bottom center",autoHideDelay: 10000});
-					
-					for (var f = 0; f < $scope.listaFIFO.length; f ++) {
-						if($scope.listaFIFO[f].bitRef == 0){
-							$scope.listaFIFO.splice(f,1,processo);
-							$scope.memoriaF[pagina].nome = processo.nome;
-							$scope.memoriaF[pagina].cor = processo.cor;
-							$scope.memoriaF[pagina].horaCarga = cont;
-							$scope.memoriaF[pagina].processoL.bit = "I";
-							$scope.memoriaF[pagina].processoL.status = false;
-							$scope.memoriaF[pagina].processoL.endMF = null;
-							$scope.memoriaF[pagina].processoL.bitcor = "#000";
-							if(pag.indexOf("A") != -1){
-								$scope.memoriaF[pagina].processoL.cort = "#0780a769";
-							}else if(pag.indexOf("B") != -1){
-								$scope.memoriaF[pagina].processoL.cort = "#78596469";
-							}else if(pag.indexOf("C") != -1){
-								$scope.memoriaF[pagina].processoL.cort = "#bf565c69";
-							}else{
-								$scope.memoriaF[pagina].processoL.cort = "#4b706a66";
+				} else if(i == 7 && $scope.escalonador == 'SEGUNDACHANCE')
+					{
+						var indiceSC = false;
+						while(!indiceSC)
+						{
+							indiceTMF = $scope.listaFIFO[0].paginaf;
+						
+							if($scope.listaFIFO[0].bitRef == 0 )
+							{
+								$.notify("Substituição com Segunda Chance:\n Remove "+ $scope.listaFIFO[0].nome +" -> Carrega: "+processo.nome, {arrowSize: 7,className: 'success',position:"bottom right",autoHideDelay: 10000});
+								$scope.removePagina($scope.listaFIFO[0].processoL,false);
+								$scope.memoriaF[indiceTMF].nome = processo.nome;
+								$scope.memoriaF[indiceTMF].cor = processo.cor;
+								$scope.memoriaF[indiceTMF].horaCarga = cont;
+								$scope.memoriaF[indiceTMF].bitRef = 0;							
+								$scope.listaFIFO.push($scope.memoriaF[indiceTMF]);
+								processo.cort = processo.cor;
+								processo.status = true;
+								processo.bitcor = "#FFFFFF";
+								processo.bit = "V";
+								processo.endMF = $scope.memoriaF[indiceTMF].paginaf;
+								$scope.memoriaF[indiceTMF].processoL = processo;
+								cont ++;
+								$scope.mfisicaocupada++;
+								indiceSC = true;								
+							} 
+							else if($scope.listaFIFO[0].bitRef == 1)
+							{
+								$scope.memoriaF[indiceTMF].horaCarga = cont;
+								$.notify("Página "+ $scope.memoriaF[indiceTMF].processoL.nome +" Recebeu a Segunda Chance \n com novo TIMESTAMP: "+$scope.memoriaF[indiceTMF].horaCarga,{arrowSize: 7,position:"bottom right",autoHideDelay: 10000},'warning');
+								$scope.memoriaF[indiceTMF].bitRef = 0;
+								$scope.listaFIFO.splice(0,1);
+								$scope.listaFIFO.push($scope.memoriaF[indiceTMF])
+								cont++;
 							}
-							$scope.listaFIFO.push($scope.memoriaF[pagina])
-							processo.cort = processo.cor;
-							processo.status = true;
-							processo.bitcor = "#FFFFFF"
-							processo.bit = "V";
-							processo.bitRef = 1;
-							processo.endMF = $scope.memoriaF[pagina].paginaf;
-							$scope.memoriaF[pagina].processoL = processo;
-							cont ++;	
-							carga = 1000;
-						}
+						} 	
+						carga = 1000;						
 					}
-				} else if(i == 7 && $scope.escalonador == null ){
-					$(".glyphicon-cog").notify("Escolha um algoritmo de substituição" , "warging"); 
-				}
-				
 			} else if ($scope.memoriaF[i].nome == null) {
 				
 				$scope.memoriaF[i].nome = processo.nome;
 				$scope.memoriaF[i].cor = processo.cor;
 				$scope.memoriaF[i].horaCarga = cont;
+				$scope.memoriaF[i].bitRef = 0 //Math.floor(Math.random() * 2); // escolhe aleatoriamente entre 0 e 1
 				$scope.memoriaF[i].processoL = processo;
-				$scope.memoriaF[i].bitRef = 1;
 				$scope.listaFIFO.push($scope.memoriaF[i])
 				console.log("Lista FIFO:", $scope.listaFIFO)
 				processo.cort = processo.cor;
 				processo.status = true;
 				processo.bitcor = "#FFFFFF"
-				//processo.bit = "V";
-				processo.bitRef = 1;
+				processo.bit = "V";
 				processo.endMF = $scope.memoriaF[i].paginaf;
 				cont ++;
-				$(".glyphicon-cog").notify("Página "+ processo.nome +" carregada na memória física!" + carga +  "success"); 
-				//$(".glyphicon-cog").notify($scope.escalonador , "success"); TESTE
+				$(".glyphicon-cog").notify("Página "+ processo.nome +" carregada na memória física!" , "success");
 				$scope.mfisicaocupada++;
 				if($scope.mfisicaocupada ==8){
 					$(".alerta").notify("Memória física cheia!",{position:"top center",type:"warn"});
@@ -242,10 +238,11 @@ $scope.carregarPagina = function(processo){
 
 //Remove página da memória física
 
-$scope.removePagina = function(pagina){
+$scope.removePagina = function(pagina,msg){
 	var indice = pagina.endMF;
 	pag = pagina.nome;
 	var indiceFIFO = $scope.listaFIFO.indexOf($scope.memoriaF[indice]);
+	var msgVF = msg;
 
 	$scope.memoriaF[indice].processoL.bit = "I";
 	$scope.memoriaF[indice].processoL.status = false;
@@ -267,9 +264,10 @@ $scope.removePagina = function(pagina){
 	$scope.memoriaF[indice].horaCarga = null;
 	$scope.memoriaF[indice].processoL = [];
 	$scope.listaFIFO.splice(indiceFIFO,1);
-	$(".glyphicon-cog").notify("Página "+ pag +" removida da memória física!" , "success");
-
-$scope.mfisicaocupada--;
+	if(msg){
+		$(".glyphicon-cog").notify("Página "+ pag +" removida da memória física!" , "success");
+	}
+	$scope.mfisicaocupada--;
 }
 
 // Exclui processo 
@@ -611,6 +609,22 @@ $scope.simularCiclo = function simularCiclo(){
 			$scope.memoriaF[i].bitRef = Math.floor(Math.random() * 2);
 		}
 	}
+}
+
+$scope.statusBitRef = function statusBitRef(pagina){
+
+	var id = pagina.paginaf;
+	var idF = $scope.listaFIFO.indexOf(pagina)
+	if($scope.memoriaF[id].bitRef == 1){
+		$scope.memoriaF[id].bitRef = 0;
+		$scope.listaFIFO[idF].bitRef = 0;
+		console.log("Bit de ref da Pg.: ", pagina.nome," recebe o valor: 0");
+	}else {
+		$scope.memoriaF[id].bitRef = 1;
+		$scope.listaFIFO[idF].bitRef = 1;
+		console.log("Bit de ref da Pg.: ", pagina.nome," recebe o valor: 1");
+	}
+
 }
 
 function gera_cor(){		// gera cor aleatoria
