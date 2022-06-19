@@ -162,13 +162,13 @@
 		</div>
 
 <!-- TABELAS DA MEMÓRIA LÓGICA DOS PROCESSOS-->
-	
 	<div class="col-sm-9 col-sm-offset-1" align="left">
 		<div class="table-responsive">
-			  
 			<!-- TABELA MEMÓRIA LÓGICA DE A-->
-			<h5>Memória Lógica <a href="" data-toggle="modal" data-target="#tb_memoria_logica"> <img src="assets/info_ico.png" width="13px" alt=""> </a></h5>
-			
+			<h5>
+				Memória Lógica 
+				<a href="" data-toggle="modal" data-target="#tb_memoria_logica"> <img src="assets/info_ico.png" width="13px" alt=""> </a>
+			</h5>
 			<div class="linha">
 			<table  ng-show="processoA.length >0" align="center" class="table" id="tabelaExec">
 				<caption>Mem. Lógica </caption>
@@ -356,6 +356,7 @@
 		</div>
 	</div>
 		<div class="fifo">
+			<h5 style="text-align: center; font-weight: bold;">Ordem de Carga da Página na Memória Física</h5>
 			<div align="center" class="linha">
 				<table class="table" id="tabelaExec" border="2">
 					<tr height="33" style="text-align: center" >
@@ -486,15 +487,15 @@
 				</div>
 				<div class="modal-body">
 				<p style="line-height: 1.8; text-align: justify;" > 
-					Mecanismos modernos de paginação como a paginação por demanda, permite que quando um processo for criado, apenas 
+					Mecanismos modernos de paginação como a paginação por demanda, permitem que quando um processo for criado, apenas 
 					as páginas que serão utilizadas no momento da execução sejam carregadas para a memória principal. 
 					<br>
 					As demais páginas, assim como todas as páginas do processo (inclusive as páginas na RAM), ficam armazenadas no disco. 
-					Caso uma página que não esteja na RAM seja referenciada, uma cópia dela é feita para a mamória princial 
+					Caso uma página que não esteja na RAM seja referenciada, uma cópia dela é feita para a memória principal 
 					e a tabela de páginas é atualizada para que seu acesso seja disponibilizado.
 					<br>
 					<br>
-					<img src="assets/HD.png" width="60%" style="padding-left: 35%;" >				
+					<img src="assets/Moldar_disco.jpg" width="90%" height="90%" style="padding-left: 5.5%;">				
 				</p>
 				</div>
 				<div class="modal-footer">
