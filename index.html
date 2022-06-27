@@ -408,7 +408,8 @@
 				</div>
 				<div class="modal-body">
 				<p style="line-height: 1.5; text-align: justify;" > 
-					O algoritmo de Segunda Chance é uma melhoria do algoritmo FIFO, que verifica o bit de referência antes de realizar a substituição da página. Percorrendo todas as páginas de forma circular em uma fila ordenada por tempo de carga na memória, o algoritmo permite que páginas que foram acessadas recentemente recebam uma segunda chance ao ser avaliada para ser a página vítima. <br>
+					No algoritmo de Segunda Chance verifica-se o bit de referência antes de realizar a substituição da página. <br>
+					Todas as páginas são percorridas de forma circular em uma fila ordenada por Timestamp, de forma que as páginas que tem o bit de referência 1 (indica que foram acessadas recentemente) recebem uma segunda chance e vão para o final da fila (timestamp atualizado e bit de referência alterado para 0). A primeira página que tem o bit de referência 0 (não foi acessada recentemente) é escolhida como vítima. <br>
 					<br><img src="assets/second_chance_chart.jpg" width="98%" >
 				</p>
 				</div>
@@ -516,10 +517,7 @@
 				</div>
 				<div class="modal-body">
 				<p style="line-height: 1.8; text-align: justify;" > 
-					A coluna Acessar PG permite simular o ciclo de acesso do processador e ser clicado o usuário 
-					pode alternar o valor da coluna bit Ref entre 0 e 1 conforme desejar, assim o usuário poderá criar situações 
-					e observar como o algoritmo de Segunda Chance irá lidar com ela.
-					<br>
+					A opção “Acessar PG” permite alterar o bit de referência da página – bit de referência 1 indica que a página foi acessada recentemente.
 					<br>
 					<img src="assets/status_bit.jpg" width="90%" height="90%" style="padding-left: 5.5%;">				
 				</p>
