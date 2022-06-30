@@ -119,8 +119,8 @@ thead td{
   background-color: white;
   position: fixed;
   top: 0px;
-//  width: 340px;
-  width: 22%;	
+  width: 340px;
+/*  width: 22%;	*/
   height: 100%;
   color: black;
   border-right: 1px solid black;
