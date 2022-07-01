@@ -251,6 +251,7 @@ $scope.hideRemove =  async function (mostrar, pg){
 	var fadepg = '#pg'+ pg;
 	var fadet = '#bitf'+ pg;
 	var fadebtn = '#btn'+ pg;
+	console.log('pg recebido func HIDEremove: ',pg);
 	if(mostrar)
 	{
 		$(fadets).fadeIn();
@@ -266,18 +267,22 @@ $scope.hideRemove =  async function (mostrar, pg){
 	return;
   };
     
-  $scope.removePgEffect = async function (){
-	await $scope.hideRemove(false,$scope.listaFIFO[0].nome);
+  $scope.removePgEffect = async function (pghide){
+	await $scope.hideRemove(false,pghide);
 	$.notify("Substituição com Segunda Chance:\n Remove: "+ 
 		$scope.listaFIFO[0].nome, 
 		{
 			position:"bottom right",
 			showDuration: 1000,
 			className: "error",
-			autoHideDelay: 19000
+			autoHideDelay: 10000
 		});
+	var pgaux = pghide;	
 	$scope.removePagina($scope.listaFIFO[0].processoL,false);
+	console.log('listaFifo depois remover: ', $scope.listaFIFO[0].nome);
+	console.log('pghide e pg auxliar: ', pghide, pgaux);
 	await $scope.sleep(2 * 1000);
+	$scope.hideRemove(true,pgaux);
 
   };
  
@@ -285,8 +290,9 @@ $scope.sleep = function(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-  $scope.addPgEffect = async function (indiceTMF,processo,cont){
-	await $scope.removePgEffect();
+$scope.addPgEffect = async function (indiceTMF,processo,cont){
+	await $scope.removePgEffect($scope.listaFIFO[0].nome);
+	console.log('INDICE TMF RECEBIDO EM ADDPG',indiceTMF);
 	$.notify("Substituição com Segunda Chance:\n Carrega: "+ processo.nome, 
 	{
 		position:"bottom right",
@@ -294,6 +300,8 @@ $scope.sleep = function(ms) {
 		showDuration: 1000,
 		autoHideDelay: 19000
 	});
+	console.log('PG DO FIFO: ',$scope.listaFIFO[0].nome);
+	
 	$scope.listaFIFO.push($scope.memoriaF[indiceTMF]);
 	$scope.memoriaF[indiceTMF].nome = processo.nome;
 	$scope.memoriaF[indiceTMF].cor = processo.cor;
@@ -305,12 +313,10 @@ $scope.sleep = function(ms) {
 	processo.bit = "V";
 	processo.endMF = $scope.memoriaF[indiceTMF].paginaf;
 	$scope.memoriaF[indiceTMF].processoL = processo;
-	$scope.hideRemove(true,$scope.listaFIFO[0].nome);
 	cont ++;
 	$scope.mfisicaocupada++;
 	console.log('assincorno fifo: ',$scope.listaFIFO);
 	console.log('assincrono mf: ', $scope.memoriaF);
-	$("#tbordemfifo").hide().show(0);
   };
 
 
