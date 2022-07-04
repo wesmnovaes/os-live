@@ -121,7 +121,7 @@ $scope.paginaStatus= function(pagina){
 }
 
 //Carrega página na Memória física
-$scope.carregarPagina = function(processo){
+$scope.carregarPagina = async function(processo){
 	
 	if(!verificaPagina(processo.nome)){
 		for (var i = 0; i < $scope.memoriaF.length; i ++) {
@@ -181,38 +181,50 @@ $scope.carregarPagina = function(processo){
 							if($scope.listaFIFO[0].bitRef == 0 )
 							{
 								$scope.addPgEffect(indiceTMF,processo,cont);
-								$scope.sleep(5 * 1000)
+								cont ++;
+								$scope.mfisicaocupada++;
 								indiceSC = true;
 							} 
 							else if($scope.listaFIFO[0].bitRef == 1)
 							{
-								$scope.memoriaF[indiceTMF].horaCarga = cont;
 								$.notify("Página "+ 
 									$scope.memoriaF[indiceTMF].processoL.nome +" \nRecebeu a Segunda Chance, \n movido para final da fila ",
 										{
 											position:"bottom right",
 											showDuration: 900,
-											autoHideDelay: 19000
+											autoHideDelay: 4000
 										});
+								await $scope.sleep(2 * 1000);
+								var pgaux = $scope.listaFIFO[0].nome;
+								await $scope.hideRemove(false, $scope.listaFIFO[0].nome);
+								$scope.listaFIFO.shift();
+								$scope.listaFIFO.push($scope.memoriaF[indiceTMF]);
+								//$scope.$apply();
+								await $scope.sleep(4 * 1000);
+								await $scope.hideRemove(true, pgaux);
+								
 								$.notify("Página "+ 
 									$scope.memoriaF[indiceTMF].processoL.nome +" \n TIMESTAMP atualizado para: "+
-									$scope.memoriaF[indiceTMF].horaCarga,
+									cont,
 										{
 											position:"bottom right",
 											showDuration: 900,
-											autoHideDelay: 19000
+											autoHideDelay: 4000
 										});
+									$scope.memoriaF[indiceTMF].horaCarga = cont;
+									$scope.$apply();
+								await $scope.sleep(4 * 1000);
 								$.notify("Página "+ 
 									$scope.memoriaF[indiceTMF].processoL.nome +" \n bit de referência alterado para: 0",
 										{
 											position:"bottom right",
 											showDuration: 900,
-											autoHideDelay: 19000
+											autoHideDelay: 4000
 										});
 								$scope.memoriaF[indiceTMF].bitRef = 0;
-								$scope.listaFIFO.splice(0,1);
-								$scope.listaFIFO.push($scope.memoriaF[indiceTMF])
 								cont++;
+								$scope.$apply();
+								await $scope.sleep(4 * 1000);
 							}
 						} 	
 						carga = 1000;						
@@ -245,45 +257,41 @@ $scope.carregarPagina = function(processo){
 	}
 }
 // animação da substuição de pg
-
 $scope.hideRemove =  async function (mostrar, pg){
 	var fadets = '#timest'+ pg;
 	var fadepg = '#pg'+ pg;
 	var fadet = '#bitf'+ pg;
 	var fadebtn = '#btn'+ pg;
-	console.log('pg recebido func HIDEremove: ',pg);
 	if(mostrar)
 	{
 		$(fadets).fadeIn();
 		$(fadepg).fadeIn();
 		$(fadet).fadeIn();
 		$(fadebtn).fadeIn();
-	}else {
-			$(fadets).fadeOut();
-			$(fadepg).fadeOut();
-			$(fadet).fadeOut();
-			$(fadebtn).fadeOut();
+	}else
+	{
+		$(fadets).fadeOut();
+		$(fadepg).fadeOut();
+		$(fadet).fadeOut();
+		$(fadebtn).fadeOut();
 	}
 	return;
   };
     
-  $scope.removePgEffect = async function (pghide){
+$scope.removePgEffect = async function (pghide){
 	await $scope.hideRemove(false,pghide);
 	$.notify("Substituição com Segunda Chance:\n Remove: "+ 
 		$scope.listaFIFO[0].nome, 
 		{
 			position:"bottom right",
-			showDuration: 1000,
+			showDuration: 900,
 			className: "error",
-			autoHideDelay: 10000
+			autoHideDelay: 2200
 		});
 	var pgaux = pghide;	
 	$scope.removePagina($scope.listaFIFO[0].processoL,false);
-	console.log('listaFifo depois remover: ', $scope.listaFIFO[0].nome);
-	console.log('pghide e pg auxliar: ', pghide, pgaux);
 	await $scope.sleep(2 * 1000);
 	$scope.hideRemove(true,pgaux);
-
   };
  
 $scope.sleep = function(ms) {
@@ -292,16 +300,13 @@ $scope.sleep = function(ms) {
 
 $scope.addPgEffect = async function (indiceTMF,processo,cont){
 	await $scope.removePgEffect($scope.listaFIFO[0].nome);
-	console.log('INDICE TMF RECEBIDO EM ADDPG',indiceTMF);
 	$.notify("Substituição com Segunda Chance:\n Carrega: "+ processo.nome, 
 	{
 		position:"bottom right",
 		className: "success",
-		showDuration: 1000,
-		autoHideDelay: 19000
+		showDuration: 900,
+		autoHideDelay: 2300
 	});
-	console.log('PG DO FIFO: ',$scope.listaFIFO[0].nome);
-	
 	$scope.listaFIFO.push($scope.memoriaF[indiceTMF]);
 	$scope.memoriaF[indiceTMF].nome = processo.nome;
 	$scope.memoriaF[indiceTMF].cor = processo.cor;
@@ -313,15 +318,10 @@ $scope.addPgEffect = async function (indiceTMF,processo,cont){
 	processo.bit = "V";
 	processo.endMF = $scope.memoriaF[indiceTMF].paginaf;
 	$scope.memoriaF[indiceTMF].processoL = processo;
-	cont ++;
-	$scope.mfisicaocupada++;
-	console.log('assincorno fifo: ',$scope.listaFIFO);
-	console.log('assincrono mf: ', $scope.memoriaF);
-  };
-
+	$scope.$apply();
+};
 
 //Remove página da memória física
-
 $scope.removePagina = function(pagina,msg){
 	var indice = pagina.endMF;
 	pag = pagina.nome;
